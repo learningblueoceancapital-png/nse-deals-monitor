@@ -1,0 +1,6 @@
+.env
+*.xlsx
+probe_nse.py
+nse_task.xml
+__pycache__/
+*.pyc

@@ -1,0 +1,6 @@
+pandas>=2.0
+openpyxl>=3.1
+requests>=2.28
+resend>=2.0
+cloudscraper>=1.2.71    # handles NSE's Cloudflare protection automatically
+python-dotenv>=1.0      # optional — loads .env file

@@ -1,0 +1,34 @@
+name: NSE Deals Monitor
+
+on:
+  schedule:
+    - cron: '30 13 * * 1-5'   # 7:00 PM IST (UTC+5:30), Monday–Friday
+  workflow_dispatch:            # allows manual trigger from GitHub UI
+
+jobs:
+  fetch-and-email:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install pandas openpyxl requests playwright python-dotenv
+
+      - name: Install Playwright Chromium + system deps
+        run: playwright install chromium --with-deps
+
+      - name: Run NSE Deals Monitor
+        env:
+          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TO:           ${{ secrets.EMAIL_TO }}
+        run: python nse_deals_monitor.py --once
