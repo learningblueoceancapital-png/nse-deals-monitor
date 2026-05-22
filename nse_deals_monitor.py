@@ -450,8 +450,8 @@ def run_monitor() -> None:
         while not _shutdown:
             session.ensure_fresh()
 
-            nse_date  = datetime.datetime.now(IST).strftime("%d-%m-%Y")
-            file_date = datetime.datetime.now(IST).strftime("%d%m%y")
+            nse_date  = get_nse_date()
+            file_date = datetime.datetime.strptime(nse_date, "%d-%m-%Y").strftime("%d%m%y")
 
             raw_bulk  = session.fetch_deals("bulk_deals",  nse_date)
             raw_block = session.fetch_deals("block_deals", nse_date)
@@ -484,12 +484,31 @@ def run_monitor() -> None:
         session.stop()
 
 
+def get_nse_date() -> str:
+    """
+    Return the correct NSE trading date to fetch, accounting for GitHub Actions
+    cron delays that can push the run into the next calendar day (IST).
+
+    Rule:
+      - Before 17:00 IST → use previous working day
+        (handles delays that push a 7 PM run past midnight)
+      - After 17:00 IST  → use today
+        (data is published by ~6 PM; 7 PM run is always after this)
+    Weekend days are skipped (NSE is closed Sat/Sun).
+    """
+    now = datetime.datetime.now(IST)
+    candidate = now.date() if now.hour >= 17 else now.date() - datetime.timedelta(days=1)
+    while candidate.weekday() >= 5:           # roll back over Saturday / Sunday
+        candidate -= datetime.timedelta(days=1)
+    return candidate.strftime("%d-%m-%Y")
+
+
 def run_once(target_date: str | None = None) -> None:
     """
     Single fetch-and-email run. target_date = 'DD-MM-YYYY' (IST).
-    Defaults to today (IST). Use for testing or manual back-fills.
+    Defaults to the most recent NSE trading date. Use for manual back-fills.
     """
-    nse_date  = target_date or datetime.datetime.now(IST).strftime("%d-%m-%Y")
+    nse_date  = target_date or get_nse_date()
     file_date = datetime.datetime.strptime(nse_date, "%d-%m-%Y").strftime("%d%m%y")
 
     session = NSEBrowserSession()
@@ -502,6 +521,10 @@ def run_once(target_date: str | None = None) -> None:
         block_df = normalise(raw_block) if raw_block is not None else pd.DataFrame()
 
         log.info("Fetched — bulk=%d  block=%d", len(bulk_df), len(block_df))
+
+        if bulk_df.empty and block_df.empty:
+            log.warning("No data published for %s — email NOT sent.", nse_date)
+            return None, bulk_df, block_df
 
         path = build_excel(bulk_df, block_df, file_date)
         send_email(path)
