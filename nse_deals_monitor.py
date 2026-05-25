@@ -67,6 +67,8 @@ EMAIL_TO       = [e.strip() for e in os.getenv("EMAIL_TO", "research@blueoceanca
 POLL_INTERVAL  = int(os.getenv("POLL_INTERVAL", "120"))     # seconds between API polls
 COOKIE_TTL     = int(os.getenv("COOKIE_TTL",   "1800"))     # seconds before cookie refresh
 OUTPUT_DIR     = Path(os.getenv("OUTPUT_DIR", Path(__file__).parent))
+RETRY_INTERVAL = 15 * 60    # seconds between retries in run_once
+SEND_CUTOFF_HOUR = 22       # give up if no data by 10 PM IST
 IST            = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 
 # ── NSE URLs ───────────────────────────────────────────────────────────────────
@@ -505,8 +507,10 @@ def get_nse_date() -> str:
 
 def run_once(target_date: str | None = None) -> None:
     """
-    Single fetch-and-email run. target_date = 'DD-MM-YYYY' (IST).
-    Defaults to the most recent NSE trading date. Use for manual back-fills.
+    Fetch-and-email run with retry until 10 PM IST.
+    target_date = 'DD-MM-YYYY' (IST). Defaults to most recent trading date.
+    Retries every 15 minutes if data is not yet published.
+    Gives up and does NOT send if no data by SEND_CUTOFF_HOUR.
     """
     nse_date  = target_date or get_nse_date()
     file_date = datetime.datetime.strptime(nse_date, "%d-%m-%Y").strftime("%d%m%y")
@@ -514,21 +518,34 @@ def run_once(target_date: str | None = None) -> None:
     session = NSEBrowserSession()
     session.start()
     try:
-        raw_bulk  = session.fetch_deals("bulk_deals",  nse_date)
-        raw_block = session.fetch_deals("block_deals", nse_date)
+        attempt = 0
+        while True:
+            attempt += 1
+            raw_bulk  = session.fetch_deals("bulk_deals",  nse_date)
+            raw_block = session.fetch_deals("block_deals", nse_date)
 
-        bulk_df  = normalise(raw_bulk)  if raw_bulk  is not None else pd.DataFrame()
-        block_df = normalise(raw_block) if raw_block is not None else pd.DataFrame()
+            bulk_df  = normalise(raw_bulk)  if raw_bulk  is not None else pd.DataFrame()
+            block_df = normalise(raw_block) if raw_block is not None else pd.DataFrame()
 
-        log.info("Fetched — bulk=%d  block=%d", len(bulk_df), len(block_df))
+            log.info("Attempt %d — bulk=%d  block=%d", attempt, len(bulk_df), len(block_df))
 
-        if bulk_df.empty and block_df.empty:
-            log.warning("No data published for %s — email NOT sent.", nse_date)
-            return None, bulk_df, block_df
+            if not (bulk_df.empty and block_df.empty):
+                path = build_excel(bulk_df, block_df, file_date)
+                send_email(path)
+                return path, bulk_df, block_df
 
-        path = build_excel(bulk_df, block_df, file_date)
-        send_email(path)
-        return path, bulk_df, block_df
+            now = datetime.datetime.now(IST)
+            if now.hour >= SEND_CUTOFF_HOUR:
+                log.warning(
+                    "No data published for %s by %02d:00 IST — email NOT sent.",
+                    nse_date, SEND_CUTOFF_HOUR,
+                )
+                return None, bulk_df, block_df
+
+            nxt = (now + datetime.timedelta(seconds=RETRY_INTERVAL)).strftime("%H:%M IST")
+            log.info("No data yet for %s — retrying at %s", nse_date, nxt)
+            time.sleep(RETRY_INTERVAL)
+            session.ensure_fresh()
     finally:
         session.stop()
 
