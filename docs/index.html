@@ -472,7 +472,7 @@ fetch('data.json?v=' + Date.now())
         : `<span class="company-name">${x.company_name || '—'}</span>`;
 
       tr.innerHTML = `
-        <td class="row-num">${i + 1}</td>
+        <td class="row-num sn"></td>
         <td>${nameHtml}</td>
         <td>${catTag(x.category)}</td>
         <td class="date-cell" style="color:#6b7280">${x.fy || '—'}</td>
@@ -489,7 +489,7 @@ fetch('data.json?v=' + Date.now())
     // DataTable
     dtTable = new DataTable('#ipo-table', {
       pageLength: 50,
-      order: [[4, 'desc']],
+      order: [[4, 'desc']],   // Allotment Date descending
       columnDefs: [
         { orderable: false, targets: [0] },
         { targets: [5, 6, 7], type: 'num' },
@@ -504,6 +504,13 @@ fetch('data.json?v=' + Date.now())
         infoFiltered: '(filtered from _MAX_)',
       },
       dom: '<"d-flex align-items-center justify-content-between px-3 pt-2 pb-1"lf>t<"d-flex align-items-center justify-content-between px-3 py-2"ip>',
+      drawCallback: function() {
+        // Renumber visible rows sequentially after every sort / filter / page
+        const info = this.api().page.info();
+        this.api().rows({ page: 'current' }).nodes().each(function(row, i) {
+          row.querySelector('td.sn').textContent = info.start + i + 1;
+        });
+      },
     });
 
     document.getElementById('loading-overlay').style.display = 'none';
