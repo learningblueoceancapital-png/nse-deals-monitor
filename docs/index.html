@@ -5,385 +5,530 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IPO Anchor Lock-in Tracker</title>
 
-  <!-- Bootstrap 5 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css" />
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 
   <style>
-    :root {
-      --brand-dark: #0d2137;
-      --brand-blue: #1a5276;
-      --brand-accent: #2e86c1;
-    }
-    body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; font-size: 0.88rem; }
-    .navbar { background: var(--brand-dark) !important; }
-    .navbar-brand { font-weight: 700; letter-spacing: .5px; }
+    * { box-sizing: border-box; }
 
-    /* ── Summary cards ── */
-    .stat-card { border: none; border-radius: 12px; padding: 1.1rem 1.4rem; color: #fff; }
-    .stat-card .stat-val { font-size: 2rem; font-weight: 700; line-height: 1; }
-    .stat-card .stat-lbl { font-size: .75rem; opacity: .85; margin-top: .25rem; }
-    .bg-brand   { background: var(--brand-blue); }
-    .bg-danger2 { background: #922b21; }
-    .bg-warn    { background: #b7950b; }
-    .bg-ok      { background: #1e8449; }
-    .bg-grey    { background: #566573; }
+    body {
+      background: #f7f8fa;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      color: #1a1a1a;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 14px 28px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .site-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      letter-spacing: -.01em;
+    }
+    .site-sub {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    .site-updated {
+      margin-left: auto;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: flex;
+      gap: 0;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      overflow-x: auto;
+    }
+    .stat-item {
+      padding: 14px 24px;
+      border-right: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+    .stat-num.warn  { color: #b45309; }
+    .stat-num.crit  { color: #b91c1c; }
+    .stat-label {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    /* ── Alert bar ── */
+    .alert-bar {
+      background: #fef3c7;
+      border-bottom: 1px solid #fde68a;
+      padding: 9px 28px;
+      font-size: 12px;
+      color: #78350f;
+      display: none;
+    }
+    .alert-bar.show { display: block; }
+    .alert-bar strong { font-weight: 600; }
+    .alert-items { margin-top: 4px; padding-left: 16px; }
+    .alert-items li { margin-bottom: 2px; }
+
+    /* ── Filters ── */
+    .filter-row {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-row label { font-size: 12px; color: #374151; font-weight: 500; margin-right: 4px; }
+    .filter-row select {
+      font-size: 12px;
+      padding: 4px 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      background: #fff;
+      color: #111;
+      height: 28px;
+    }
+    .filter-row select:focus { outline: none; border-color: #6366f1; }
+    .filter-sep { width: 1px; height: 20px; background: #e5e7eb; }
+    .filter-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .filter-right label { font-size: 12px; color: #374151; cursor: pointer; }
+    .filter-right input { cursor: pointer; }
 
     /* ── Table wrapper ── */
-    .table-wrap { background: #fff; border-radius: 12px; padding: 1.2rem; box-shadow: 0 1px 6px rgba(0,0,0,.08); }
-    table.dataTable thead th { background: var(--brand-dark); color: #fff; white-space: nowrap; }
-    table.dataTable tbody td { vertical-align: middle; }
-    table.dataTable tbody tr:hover { background: #eaf2fb; }
-
-    /* ── Lock-in badges ── */
-    .badge-expired  { background: #c0392b; color: #fff; }
-    .badge-critical { background: #e74c3c; color: #fff; }
-    .badge-warning  { background: #f39c12; color: #fff; }
-    .badge-active   { background: #27ae60; color: #fff; }
-    .badge-na       { background: #bdc3c7; color: #555; }
-    .lock-badge { display: inline-block; padding: .2rem .55rem; border-radius: 6px; font-size: .78rem; font-weight: 600; white-space: nowrap; }
-
-    /* ── Category pills ── */
-    .pill-mb  { background: #2e86c1; color: #fff; padding: .15rem .5rem; border-radius: 20px; font-size: .72rem; font-weight: 600; }
-    .pill-sme { background: #8e44ad; color: #fff; padding: .15rem .5rem; border-radius: 20px; font-size: .72rem; font-weight: 600; }
-
-    /* ── Filter bar ── */
-    .filter-bar { background: #fff; border-radius: 10px; padding: .75rem 1rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
-    .filter-bar .form-select, .filter-bar .form-control { font-size: .83rem; }
-
-    /* ── Upcoming panel ── */
-    .upcoming-section { background: #fff3cd; border-left: 4px solid #f39c12; border-radius: 0 8px 8px 0; padding: .75rem 1rem; margin-bottom: 1.2rem; }
-
-    /* ── Pagination ── */
-    .dataTables_paginate .page-link { color: var(--brand-blue); }
-    .dataTables_paginate .active .page-link { background: var(--brand-blue); border-color: var(--brand-blue); }
-
-    #loading-overlay {
-      position: fixed; inset: 0; background: rgba(13,33,55,.75);
-      display: flex; align-items: center; justify-content: center; z-index: 9999;
+    .table-outer {
+      padding: 20px 28px;
     }
-    .spinner-ring { width: 52px; height: 52px; border: 5px solid rgba(255,255,255,.2);
-      border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+    .table-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* DataTables overrides */
+    div.dataTables_wrapper div.dataTables_filter,
+    div.dataTables_wrapper div.dataTables_length {
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    div.dataTables_wrapper div.dataTables_length select {
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    div.dataTables_wrapper div.dataTables_info {
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    div.dataTables_wrapper div.dataTables_paginate {
+      padding: 8px 14px;
+    }
+    div.dataTables_wrapper div.dataTables_paginate .paginate_button {
+      font-size: 12px;
+      padding: 3px 8px !important;
+      border-radius: 4px !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate .paginate_button.current {
+      background: #111 !important;
+      color: #fff !important;
+      border-color: #111 !important;
+    }
+    div.dataTables_wrapper div.dataTables_paginate .paginate_button:hover {
+      background: #f3f4f6 !important;
+      color: #111 !important;
+      border-color: #d1d5db !important;
+    }
+
+    table#ipo-table {
+      width: 100% !important;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    table#ipo-table thead th {
+      background: #f9fafb;
+      color: #374151;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      border-bottom: 1px solid #e5e7eb !important;
+      border-top: none !important;
+      padding: 9px 10px;
+      white-space: nowrap;
+    }
+    table#ipo-table tbody td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f3f4f6 !important;
+      border-top: none !important;
+      vertical-align: middle;
+      color: #1a1a1a;
+    }
+    table#ipo-table tbody tr:last-child td { border-bottom: none !important; }
+    table#ipo-table tbody tr:hover td { background: #fafafa; }
+
+    /* ── Cell styles ── */
+    .company-name {
+      font-weight: 500;
+      color: #111;
+      text-decoration: none;
+    }
+    .company-name:hover { color: #4f46e5; text-decoration: underline; }
+
+    .cat-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 3px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .cat-mb  { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .cat-sme { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+
+    .row-num { color: #9ca3af; font-size: 11px; }
+    .num-cell { text-align: right; font-variant-numeric: tabular-nums; }
+    .date-cell { font-variant-numeric: tabular-nums; color: #374151; }
+
+    /* Lock-in status — text only, no background badges */
+    .lock-date { font-variant-numeric: tabular-nums; }
+    .lock-active   { color: #374151; }
+    .lock-warning  { color: #92400e; font-weight: 500; }
+    .lock-critical { color: #991b1b; font-weight: 600; }
+    .lock-expired  { color: #9ca3af; }
+    .lock-na       { color: #d1d5db; }
+    .lock-days {
+      font-size: 10.5px;
+      margin-left: 3px;
+      opacity: .75;
+    }
+
+    /* ── Footer note ── */
+    .footer-note {
+      padding: 0 28px 20px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+    .footer-note a { color: #6b7280; }
+
+    /* Loading */
+    #loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(255,255,255,.9);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    .spinner {
+      width: 28px; height: 28px;
+      border: 2px solid #e5e7eb;
+      border-top-color: #374151;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .company-link { color: var(--brand-blue); text-decoration: none; font-weight: 600; }
-    .company-link:hover { text-decoration: underline; }
-
-    .fy-badge { font-size: .72rem; background: #eaf0fb; color: #2e4a8a; border: 1px solid #b0c4de;
-      padding: .1rem .4rem; border-radius: 4px; margin-left: .3rem; }
-
-    td.highlight-30 { background: rgba(255, 160, 0, .08); }
-    td.highlight-90 { background: rgba(231, 76, 60, .06); }
+    .loading-text { font-size: 13px; color: #6b7280; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-<!-- Loading overlay -->
+<!-- Loading -->
 <div id="loading-overlay">
-  <div class="text-center text-white">
-    <div class="spinner-ring mx-auto mb-3"></div>
-    <div style="font-size:.9rem;">Loading IPO data…</div>
+  <div class="text-center">
+    <div class="spinner mx-auto"></div>
+    <div class="loading-text">Loading…</div>
   </div>
 </div>
 
-<!-- Navbar -->
-<nav class="navbar navbar-dark navbar-expand-lg">
-  <div class="container-fluid px-4">
-    <span class="navbar-brand">
-      <i class="bi bi-lock-fill me-2 text-warning"></i>IPO Anchor Lock-in Tracker
-    </span>
-    <span class="navbar-text ms-auto text-white-50 small" id="last-updated-nav"></span>
+<!-- Header -->
+<div class="site-header">
+  <span class="site-title">IPO Anchor Lock-in Tracker</span>
+  <span class="site-sub">India · SEBI ICDR · 30 &amp; 90-day anchor lock-in periods</span>
+  <span class="site-updated" id="last-updated"></span>
+</div>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-num" id="stat-total">—</div>
+    <div class="stat-label">IPOs Tracked</div>
   </div>
-</nav>
-
-<div class="container-fluid px-4 py-3">
-
-  <!-- Summary cards -->
-  <div class="row g-3 mb-3" id="stat-cards">
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-brand h-100">
-        <div class="stat-val" id="stat-total">—</div>
-        <div class="stat-lbl">Total IPOs Tracked</div>
-      </div>
-    </div>
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-danger2 h-100">
-        <div class="stat-val" id="stat-30d-critical">—</div>
-        <div class="stat-lbl">30-day Locks Expiring ≤7 days</div>
-      </div>
-    </div>
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-warn h-100">
-        <div class="stat-val" id="stat-30d-warning">—</div>
-        <div class="stat-lbl">30-day Locks Expiring ≤30 days</div>
-      </div>
-    </div>
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-danger2 h-100">
-        <div class="stat-val" id="stat-90d-critical">—</div>
-        <div class="stat-lbl">90-day Locks Expiring ≤7 days</div>
-      </div>
-    </div>
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-ok h-100">
-        <div class="stat-val" id="stat-anchor-val">—</div>
-        <div class="stat-lbl">Total Anchor Value (₹ Cr) — Tracked</div>
-      </div>
-    </div>
-    <div class="col-6 col-md-3 col-xl-2">
-      <div class="stat-card bg-grey h-100">
-        <div class="stat-val" id="stat-updated">—</div>
-        <div class="stat-lbl">Data Last Updated (IST)</div>
-      </div>
-    </div>
+  <div class="stat-item">
+    <div class="stat-num crit" id="stat-exp-7d">—</div>
+    <div class="stat-label">Lock-ins Expiring ≤ 7 days</div>
   </div>
-
-  <!-- Upcoming expirations alert -->
-  <div id="upcoming-panel" class="upcoming-section d-none">
-    <strong><i class="bi bi-exclamation-triangle-fill me-1"></i>Upcoming Anchor Lock-in Expirations (next 7 days):</strong>
-    <ul id="upcoming-list" class="mb-0 mt-1 ps-3"></ul>
+  <div class="stat-item">
+    <div class="stat-num warn" id="stat-exp-30d">—</div>
+    <div class="stat-label">Lock-ins Expiring ≤ 30 days</div>
   </div>
-
-  <!-- Filter bar -->
-  <div class="filter-bar d-flex flex-wrap gap-2 align-items-center">
-    <div>
-      <label class="form-label mb-0 me-1 fw-semibold small">Fiscal Year</label>
-      <select id="filter-fy" class="form-select form-select-sm" style="width:auto;display:inline-block;">
-        <option value="">All</option>
-        <option value="FY2025">FY2025 (Apr 2024–Mar 2025)</option>
-        <option value="FY2026">FY2026 (Apr 2025–Mar 2026)</option>
-        <option value="FY2027">FY2027 (Apr 2026–Mar 2027)</option>
-      </select>
-    </div>
-    <div>
-      <label class="form-label mb-0 me-1 fw-semibold small">Category</label>
-      <select id="filter-cat" class="form-select form-select-sm" style="width:auto;display:inline-block;">
-        <option value="">All</option>
-        <option value="Mainboard">Mainboard</option>
-        <option value="SME">SME</option>
-      </select>
-    </div>
-    <div>
-      <label class="form-label mb-0 me-1 fw-semibold small">Lock-in Status</label>
-      <select id="filter-status" class="form-select form-select-sm" style="width:auto;display:inline-block;">
-        <option value="">All</option>
-        <option value="critical">Expiring ≤7 days</option>
-        <option value="warning">Expiring ≤30 days</option>
-        <option value="active">Active</option>
-        <option value="expired">Expired</option>
-      </select>
-    </div>
-    <div class="ms-auto">
-      <label class="form-check-label me-2 small fw-semibold">
-        <input type="checkbox" id="filter-anchor-only" class="form-check-input me-1" />
-        Anchor data only
-      </label>
-    </div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat-anchor-val">—</div>
+    <div class="stat-label">Total Anchor Value Tracked (₹ Cr)</div>
   </div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat-mb">—</div>
+    <div class="stat-label">Mainboard</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat-sme">—</div>
+    <div class="stat-label">SME</div>
+  </div>
+</div>
 
-  <!-- Main table -->
-  <div class="table-wrap">
-    <table id="ipo-table" class="table table-bordered table-hover w-100" style="font-size:.82rem;">
+<!-- Alert: expiring within 7 days -->
+<div class="alert-bar" id="alert-bar">
+  <strong>Upcoming lock-in expirations (next 7 days)</strong>
+  <ul class="alert-items" id="alert-list"></ul>
+</div>
+
+<!-- Filters -->
+<div class="filter-row">
+  <div>
+    <label for="filter-fy">Year</label>
+    <select id="filter-fy">
+      <option value="">All FY</option>
+      <option value="FY2025">FY2025</option>
+      <option value="FY2026">FY2026</option>
+      <option value="FY2027">FY2027</option>
+    </select>
+  </div>
+  <div>
+    <label for="filter-cat">Category</label>
+    <select id="filter-cat">
+      <option value="">All</option>
+      <option value="Mainboard">Mainboard</option>
+      <option value="SME">SME</option>
+    </select>
+  </div>
+  <div>
+    <label for="filter-status">Lock-in Status</label>
+    <select id="filter-status">
+      <option value="">All</option>
+      <option value="critical">Expiring ≤ 7 days</option>
+      <option value="warning">Expiring ≤ 30 days</option>
+      <option value="active">Active</option>
+      <option value="expired">Expired</option>
+    </select>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-right">
+    <input type="checkbox" id="filter-anchor-only" />
+    <label for="filter-anchor-only">Anchor data only</label>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-outer">
+  <div class="table-card">
+    <table id="ipo-table" class="table table-borderless mb-0">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Company</th>
-          <th>Cat.</th>
+          <th style="width:36px">#</th>
+          <th>Company Name</th>
+          <th>Category</th>
           <th>FY</th>
-          <th>Open Date</th>
           <th>Allotment Date</th>
-          <th>Issue Size<br/>(₹ Cr)</th>
+          <th>Issue Size (₹ Cr)</th>
           <th>Anchor Shares</th>
-          <th>Anchor Value<br/>(₹ Cr)</th>
-          <th>30-Day Lock-in<br/>Expiry (50%)</th>
-          <th>90-Day Lock-in<br/>Expiry (50%)</th>
+          <th>Anchor Value (₹ Cr)</th>
+          <th>30-Day Lock-in Expiry</th>
+          <th>90-Day Lock-in Expiry</th>
         </tr>
       </thead>
       <tbody id="table-body"></tbody>
     </table>
   </div>
+</div>
 
-  <p class="text-muted small mt-2 mb-0">
-    <i class="bi bi-info-circle me-1"></i>
-    Anchor investor lock-in per SEBI ICDR: 50% of anchor allocation locked for <strong>30 days</strong>,
-    remaining 50% locked for <strong>90 days</strong> from allotment date.
-    Data sourced from <a href="https://www.chittorgarh.com/" target="_blank">Chittorgarh.com</a>.
-    Updated daily at 00:00 IST.
-  </p>
+<!-- Footer -->
+<div class="footer-note">
+  Per SEBI ICDR regulations: 50% of anchor allocation locked for 30 days from allotment, remaining 50% locked for 90 days.
+  Data sourced from <a href="https://www.chittorgarh.com/" target="_blank">Chittorgarh.com</a>.
+  Updated daily at midnight IST.
+</div>
 
-</div><!-- /container -->
-
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-/* ── Helpers ── */
 function fmtDate(d) {
-  if (!d) return '—';
-  try {
-    const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
-  } catch { return d; }
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-function fmtNum(n, decimals=2) {
-  if (n == null || n === '') return '—';
-  return Number(n).toLocaleString('en-IN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+function fmtNum(n, dec = 2) {
+  if (n == null) return '—';
+  return Number(n).toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 }
 
 function fmtInt(n) {
-  if (n == null || n === '') return '—';
+  if (n == null) return '—';
   return Number(n).toLocaleString('en-IN');
 }
 
-function lockBadge(dateStr, status, days) {
-  if (!dateStr) return '<span class="lock-badge badge-na">N/A</span>';
-  const label = fmtDate(dateStr);
-  const daysLabel = (days != null)
-    ? (days < 0 ? ` (${Math.abs(days)}d ago)` : ` (${days}d)`)
+function lockCell(dateStr, status, days) {
+  if (!dateStr) return '<span class="lock-na">—</span>';
+  const d = fmtDate(dateStr);
+  const dStr = days != null
+    ? `<span class="lock-days">${days < 0 ? Math.abs(days) + 'd ago' : days + 'd'}</span>`
     : '';
-  const cls = {
-    expired:  'badge-expired',
-    critical: 'badge-critical',
-    warning:  'badge-warning',
-    active:   'badge-active',
-  }[status] || 'badge-na';
-  return `<span class="lock-badge ${cls}">${label}${daysLabel}</span>`;
+  const cls = { expired: 'lock-expired', critical: 'lock-critical', warning: 'lock-warning', active: 'lock-active' }[status] || 'lock-na';
+  return `<span class="lock-date ${cls}">${d}${dStr}</span>`;
 }
 
-function catPill(cat) {
+function catTag(cat) {
   if (!cat) return '—';
-  const cls = cat === 'Mainboard' ? 'pill-mb' : 'pill-sme';
-  return `<span class="${cls}">${cat}</span>`;
+  const cls = cat === 'Mainboard' ? 'cat-mb' : 'cat-sme';
+  const lbl = cat === 'Mainboard' ? 'MB' : 'SME';
+  return `<span class="cat-tag ${cls}">${lbl}</span>`;
 }
 
-/* ── Global state ── */
 let allData = [];
 let dtTable = null;
 
-/* ── Load data ── */
 fetch('data.json?v=' + Date.now())
   .then(r => r.json())
   .then(payload => {
     allData = payload.ipos || [];
 
-    // Summary stats
+    // Stats
     document.getElementById('stat-total').textContent = payload.total || allData.length;
 
-    const c30 = allData.filter(x => x.lockin_30d_status === 'critical').length;
-    const w30 = allData.filter(x => x.lockin_30d_status === 'warning').length;
-    const c90 = allData.filter(x => x.lockin_90d_status === 'critical').length;
-    document.getElementById('stat-30d-critical').textContent = c30;
-    document.getElementById('stat-30d-warning').textContent  = w30;
-    document.getElementById('stat-90d-critical').textContent = c90;
+    const exp7  = allData.filter(x => x.lockin_30d_status === 'critical' || x.lockin_90d_status === 'critical').length;
+    const exp30 = allData.filter(x => x.lockin_30d_status === 'warning'  || x.lockin_90d_status === 'warning').length;
+    const totalAnchor = allData.reduce((s, x) => s + (x.anchor_value_cr || 0), 0);
+    const mbCount  = allData.filter(x => x.category === 'Mainboard').length;
+    const smeCount = allData.filter(x => x.category === 'SME').length;
 
-    const totalAnchor = allData.reduce((acc, x) => acc + (x.anchor_value_cr || 0), 0);
+    document.getElementById('stat-exp-7d').textContent   = exp7;
+    document.getElementById('stat-exp-30d').textContent  = exp30;
     document.getElementById('stat-anchor-val').textContent = fmtNum(totalAnchor, 0);
+    document.getElementById('stat-mb').textContent        = mbCount;
+    document.getElementById('stat-sme').textContent       = smeCount;
 
     if (payload.generated_at) {
-      // Convert UTC to IST
-      const dt = new Date(payload.generated_at);
-      const ist = dt.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
-      document.getElementById('stat-updated').textContent = ist;
-      document.getElementById('last-updated-nav').textContent = 'Updated: ' + ist + ' IST';
+      const ist = new Date(payload.generated_at).toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+      document.getElementById('last-updated').textContent = 'Updated ' + ist + ' IST';
     }
 
-    // Upcoming panel
-    const upcoming = allData.filter(x =>
-      (x.lockin_30d_status === 'critical') || (x.lockin_90d_status === 'critical')
-    );
-    if (upcoming.length > 0) {
-      const panel = document.getElementById('upcoming-panel');
-      const ul    = document.getElementById('upcoming-list');
-      panel.classList.remove('d-none');
-      upcoming.slice(0, 15).forEach(x => {
+    // Alert bar
+    const expiring = allData.filter(x => x.lockin_30d_status === 'critical' || x.lockin_90d_status === 'critical');
+    if (expiring.length > 0) {
+      const bar  = document.getElementById('alert-bar');
+      const list = document.getElementById('alert-list');
+      bar.classList.add('show');
+      expiring.slice(0, 12).forEach(x => {
         const li = document.createElement('li');
-        let parts = [];
-        if (x.lockin_30d_status === 'critical')
-          parts.push(`30-day on <strong>${fmtDate(x.lockin_30d)}</strong> (${x.lockin_30d_days}d)`);
-        if (x.lockin_90d_status === 'critical')
-          parts.push(`90-day on <strong>${fmtDate(x.lockin_90d)}</strong> (${x.lockin_90d_days}d)`);
-        li.innerHTML = `<strong>${x.company_name}</strong> ${catPill(x.category)} — ${parts.join('; ')}`;
-        ul.appendChild(li);
+        const parts = [];
+        if (x.lockin_30d_status === 'critical') parts.push(`30-day expires ${fmtDate(x.lockin_30d)} (${x.lockin_30d_days}d)`);
+        if (x.lockin_90d_status === 'critical') parts.push(`90-day expires ${fmtDate(x.lockin_90d)} (${x.lockin_90d_days}d)`);
+        li.innerHTML = `<strong>${x.company_name}</strong> — ${parts.join('; ')}`;
+        list.appendChild(li);
       });
     }
 
-    // Build table rows
+    // Rows
     const tbody = document.getElementById('table-body');
     allData.forEach((x, i) => {
       const tr = document.createElement('tr');
-      tr.dataset.fy     = x.fy || '';
-      tr.dataset.cat    = x.category || '';
-      tr.dataset.status30 = x.lockin_30d_status || '';
-      tr.dataset.status90 = x.lockin_90d_status || '';
+      tr.dataset.fy        = x.fy || '';
+      tr.dataset.cat       = x.category || '';
+      tr.dataset.status30  = x.lockin_30d_status || '';
+      tr.dataset.status90  = x.lockin_90d_status || '';
       tr.dataset.hasAnchor = (x.anchor_shares || x.anchor_value_cr) ? '1' : '0';
 
-      const companyCell = x.source_url
-        ? `<a class="company-link" href="${x.source_url}" target="_blank">${x.company_name || '—'}</a>`
-        : (x.company_name || '—');
+      const nameHtml = x.source_url
+        ? `<a class="company-name" href="${x.source_url}" target="_blank">${x.company_name || '—'}</a>`
+        : `<span class="company-name">${x.company_name || '—'}</span>`;
 
       tr.innerHTML = `
-        <td class="text-muted">${i + 1}</td>
-        <td>${companyCell}<span class="fy-badge">${x.fy || '?'}</span></td>
-        <td>${catPill(x.category)}</td>
-        <td>${x.fy || '—'}</td>
-        <td>${fmtDate(x.open_date)}</td>
-        <td>${fmtDate(x.allotment_date)}</td>
-        <td class="text-end">${x.issue_size_cr != null ? fmtNum(x.issue_size_cr) : '—'}</td>
-        <td class="text-end">${fmtInt(x.anchor_shares)}</td>
-        <td class="text-end">${x.anchor_value_cr != null ? fmtNum(x.anchor_value_cr) : '—'}</td>
-        <td class="${x.lockin_30d_status === 'warning' || x.lockin_30d_status === 'critical' ? 'highlight-30' : ''}">${lockBadge(x.lockin_30d, x.lockin_30d_status, x.lockin_30d_days)}</td>
-        <td class="${x.lockin_90d_status === 'warning' || x.lockin_90d_status === 'critical' ? 'highlight-90' : ''}">${lockBadge(x.lockin_90d, x.lockin_90d_status, x.lockin_90d_days)}</td>
+        <td class="row-num">${i + 1}</td>
+        <td>${nameHtml}</td>
+        <td>${catTag(x.category)}</td>
+        <td class="date-cell" style="color:#6b7280">${x.fy || '—'}</td>
+        <td class="date-cell">${fmtDate(x.allotment_date) || '—'}</td>
+        <td class="num-cell">${x.issue_size_cr != null ? fmtNum(x.issue_size_cr) : '—'}</td>
+        <td class="num-cell">${fmtInt(x.anchor_shares)}</td>
+        <td class="num-cell">${x.anchor_value_cr != null ? fmtNum(x.anchor_value_cr) : '—'}</td>
+        <td>${lockCell(x.lockin_30d, x.lockin_30d_status, x.lockin_30d_days)}</td>
+        <td>${lockCell(x.lockin_90d, x.lockin_90d_status, x.lockin_90d_days)}</td>
       `;
       tbody.appendChild(tr);
     });
 
-    // Init DataTable
+    // DataTable
     dtTable = new DataTable('#ipo-table', {
       pageLength: 50,
-      order:      [[5, 'desc']],   // sort by allotment date desc
+      order: [[4, 'desc']],
       columnDefs: [
         { orderable: false, targets: [0] },
-        { type: 'date', targets: [4, 5, 9, 10] },
-        { type: 'num',  targets: [6, 7, 8] },
+        { targets: [5, 6, 7], type: 'num' },
       ],
       language: {
-        search:    'Search companies:',
-        emptyTable: 'No IPOs match the current filters.',
+        search: '',
+        searchPlaceholder: 'Search…',
+        emptyTable: 'No IPOs match the selected filters.',
+        lengthMenu: 'Show _MENU_ rows',
+        info: '_START_–_END_ of _TOTAL_ IPOs',
+        infoEmpty: '0 IPOs',
+        infoFiltered: '(filtered from _MAX_)',
       },
-      dom: '<"d-flex justify-content-between align-items-center mb-2"lf>rt<"d-flex justify-content-between align-items-center mt-2"ip>',
+      dom: '<"d-flex align-items-center justify-content-between px-3 pt-2 pb-1"lf>t<"d-flex align-items-center justify-content-between px-3 py-2"ip>',
     });
 
-    // Hide loading
     document.getElementById('loading-overlay').style.display = 'none';
 
     // Filters
     function applyFilters() {
-      const fy     = document.getElementById('filter-fy').value;
-      const cat    = document.getElementById('filter-cat').value;
-      const status = document.getElementById('filter-status').value;
+      const fy         = document.getElementById('filter-fy').value;
+      const cat        = document.getElementById('filter-cat').value;
+      const status     = document.getElementById('filter-status').value;
       const anchorOnly = document.getElementById('filter-anchor-only').checked;
 
       $.fn.dataTable.ext.search = [];
-      $.fn.dataTable.ext.search.push((_settings, _data, _idx, row_node) => {
-        const tr = $('#ipo-table tbody tr').eq(_idx)[0];
+      $.fn.dataTable.ext.search.push((_s, _d, _i) => {
+        const tr = document.querySelectorAll('#ipo-table tbody tr')[_i];
         if (!tr) return true;
-        if (fy     && tr.dataset.fy !== fy)   return false;
-        if (cat    && tr.dataset.cat !== cat)  return false;
-        if (status && tr.dataset.status30 !== status && tr.dataset.status90 !== status) return false;
+        if (fy        && tr.dataset.fy !== fy)   return false;
+        if (cat       && tr.dataset.cat !== cat)  return false;
+        if (status    && tr.dataset.status30 !== status && tr.dataset.status90 !== status) return false;
         if (anchorOnly && tr.dataset.hasAnchor !== '1') return false;
         return true;
       });
       dtTable.draw();
     }
 
-    ['filter-fy','filter-cat','filter-status'].forEach(id =>
+    ['filter-fy', 'filter-cat', 'filter-status'].forEach(id =>
       document.getElementById(id).addEventListener('change', applyFilters)
     );
     document.getElementById('filter-anchor-only').addEventListener('change', applyFilters);
@@ -391,9 +536,8 @@ fetch('data.json?v=' + Date.now())
   .catch(err => {
     document.getElementById('loading-overlay').style.display = 'none';
     document.getElementById('table-body').innerHTML =
-      `<tr><td colspan="11" class="text-center text-danger py-4">
-        <i class="bi bi-exclamation-octagon me-2"></i>
-        Failed to load data.json — ${err.message}
+      `<tr><td colspan="10" style="text-align:center;padding:40px;color:#9ca3af">
+        Failed to load data — ${err.message}
        </td></tr>`;
   });
 </script>
