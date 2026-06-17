@@ -1,0 +1,59 @@
+name: IPO Anchor Lock-in Tracker
+
+on:
+  schedule:
+    # 12:00 AM IST = 18:30 UTC previous day
+    - cron: '30 18 * * *'
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: 'Backfill all historical IPOs (re-scrape everything)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write   # needed to commit docs/data.json + ipo_data.db back to repo
+
+jobs:
+  scrape-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install requests beautifulsoup4 lxml playwright
+
+      - name: Install Playwright Chromium + system deps
+        run: playwright install chromium --with-deps
+
+      - name: Run IPO scraper — incremental update
+        if: ${{ github.event.inputs.backfill != 'true' }}
+        run: python ipo_scraper.py
+
+      - name: Run IPO scraper — full backfill
+        if: ${{ github.event.inputs.backfill == 'true' }}
+        run: python ipo_scraper.py --backfill
+
+      - name: Commit updated data
+        run: |
+          git config user.name  "IPO Tracker Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data.json ipo_data.db
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            UPDATED=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "chore: update IPO data [${UPDATED}]"
+            git push
+          fi
