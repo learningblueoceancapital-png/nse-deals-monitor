@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-19T22:15:08Z",
-  "generated_date": "2026-06-19",
-  "total": 78,
+  "generated_at": "2026-06-20T22:48:27Z",
+  "generated_date": "2026-06-20",
+  "total": 79,
   "ipos": [
     {
       "source_url": "https://www.chittorgarh.com/ipo/aastha-spintex-ipo/2678/",
@@ -18,10 +18,31 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-01",
       "lockin_90d": "2026-09-30",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 43,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 42,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 103,
+      "lockin_90d_days": 102,
+      "lockin_90d_status": "active"
+    },
+    {
+      "source_url": "https://www.chittorgarh.com/ipo/twinkle-papers-ipo/2438/",
+      "company_name": "Twinkle Papers",
+      "category": "SME",
+      "fy": "FY2027",
+      "open_date": "2026-06-29",
+      "close_date": "2026-07-01",
+      "allotment_date": "2026-07-02",
+      "listing_date": "2026-07-06",
+      "issue_size_cr": null,
+      "issue_price": "",
+      "anchor_shares": null,
+      "anchor_value_cr": null,
+      "lockin_30d": "2026-08-01",
+      "lockin_90d": "2026-09-30",
+      "last_updated": "2026-06-20T22:48:26Z",
+      "lockin_30d_days": 42,
+      "lockin_30d_status": "active",
+      "lockin_90d_days": 102,
       "lockin_90d_status": "active"
     },
     {
@@ -39,10 +60,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-31",
       "lockin_90d": "2026-09-29",
-      "last_updated": "2026-06-19T22:15:04Z",
-      "lockin_30d_days": 42,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 41,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 102,
+      "lockin_90d_days": 101,
       "lockin_90d_status": "active"
     },
     {
@@ -60,10 +81,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 41,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 40,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 101,
+      "lockin_90d_days": 100,
       "lockin_90d_status": "active"
     },
     {
@@ -81,10 +102,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 41,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 40,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 101,
+      "lockin_90d_days": 100,
       "lockin_90d_status": "active"
     },
     {
@@ -102,10 +123,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
-      "last_updated": "2026-06-19T22:15:06Z",
-      "lockin_30d_days": 41,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 40,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 101,
+      "lockin_90d_days": 100,
       "lockin_90d_status": "active"
     },
     {
@@ -123,10 +144,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 40,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 39,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 100,
+      "lockin_90d_days": 99,
       "lockin_90d_status": "active"
     },
     {
@@ -144,10 +165,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 40,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 39,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 100,
+      "lockin_90d_days": 99,
       "lockin_90d_status": "active"
     },
     {
@@ -165,10 +186,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 40,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 39,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 100,
+      "lockin_90d_days": 99,
       "lockin_90d_status": "active"
     },
     {
@@ -186,10 +207,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 40,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 39,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 100,
+      "lockin_90d_days": 99,
       "lockin_90d_status": "active"
     },
     {
@@ -207,10 +228,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-24",
       "lockin_90d": "2026-09-22",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 35,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 34,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 95,
+      "lockin_90d_days": 94,
       "lockin_90d_status": "active"
     },
     {
@@ -228,10 +249,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-24",
       "lockin_90d": "2026-09-22",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 35,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 34,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 95,
+      "lockin_90d_days": 94,
       "lockin_90d_status": "active"
     },
     {
@@ -249,10 +270,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-23",
       "lockin_90d": "2026-09-21",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 34,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 33,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 94,
+      "lockin_90d_days": 93,
       "lockin_90d_status": "active"
     },
     {
@@ -270,15 +291,15 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-23",
       "lockin_90d": "2026-09-21",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 34,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 33,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 94,
+      "lockin_90d_days": 93,
       "lockin_90d_status": "active"
     },
     {
       "source_url": "https://www.chittorgarh.com/ipo/leapfrog-engineering-ipo/2107/",
-      "company_name": "Leapfrog Engineering",
+      "company_name": "Leapfrog Engineering Services",
       "category": "SME",
       "fy": "FY2027",
       "open_date": "2026-06-17",
@@ -291,10 +312,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 33,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 32,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 93,
+      "lockin_90d_days": 92,
       "lockin_90d_status": "active"
     },
     {
@@ -312,10 +333,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 33,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 32,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 93,
+      "lockin_90d_days": 92,
       "lockin_90d_status": "active"
     },
     {
@@ -333,15 +354,15 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 33,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 32,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 93,
+      "lockin_90d_days": 92,
       "lockin_90d_status": "active"
     },
     {
       "source_url": "https://www.chittorgarh.com/ipo/clay-craft-ipo/2585/",
-      "company_name": "Clay Craft",
+      "company_name": "Clay Craft India",
       "category": "SME",
       "fy": "FY2027",
       "open_date": "2026-06-17",
@@ -354,10 +375,10 @@
       "anchor_value_cr": 31.34,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 33,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 32,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 93,
+      "lockin_90d_days": 92,
       "lockin_90d_status": "active"
     },
     {
@@ -375,10 +396,10 @@
       "anchor_value_cr": 15.46,
       "lockin_30d": "2026-07-17",
       "lockin_90d": "2026-09-15",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 28,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 27,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 88,
+      "lockin_90d_days": 87,
       "lockin_90d_status": "active"
     },
     {
@@ -396,10 +417,10 @@
       "anchor_value_cr": 19.34,
       "lockin_30d": "2026-07-16",
       "lockin_90d": "2026-09-14",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 27,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 26,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 87,
+      "lockin_90d_days": 86,
       "lockin_90d_status": "active"
     },
     {
@@ -417,10 +438,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-15",
       "lockin_90d": "2026-09-13",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 26,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 25,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 86,
+      "lockin_90d_days": 85,
       "lockin_90d_status": "active"
     },
     {
@@ -438,10 +459,10 @@
       "anchor_value_cr": 41.66,
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -459,10 +480,10 @@
       "anchor_value_cr": 14.99,
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -480,10 +501,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -501,10 +522,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -522,10 +543,10 @@
       "anchor_value_cr": 188.44,
       "lockin_30d": "2026-07-07",
       "lockin_90d": "2026-09-05",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 18,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 17,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 78,
+      "lockin_90d_days": 77,
       "lockin_90d_status": "active"
     },
     {
@@ -543,10 +564,10 @@
       "anchor_value_cr": 19.91,
       "lockin_30d": "2026-07-03",
       "lockin_90d": "2026-09-01",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 14,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 13,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 74,
+      "lockin_90d_days": 73,
       "lockin_90d_status": "active"
     },
     {
@@ -564,10 +585,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-03",
       "lockin_90d": "2026-09-01",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 14,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 13,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 74,
+      "lockin_90d_days": 73,
       "lockin_90d_status": "active"
     },
     {
@@ -585,10 +606,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-04",
       "lockin_90d": "2026-09-02",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 15,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 14,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 75,
+      "lockin_90d_days": 74,
       "lockin_90d_status": "active"
     },
     {
@@ -606,10 +627,10 @@
       "anchor_value_cr": 5.15,
       "lockin_30d": "2026-06-30",
       "lockin_90d": "2026-08-29",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 11,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 10,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 71,
+      "lockin_90d_days": 70,
       "lockin_90d_status": "active"
     },
     {
@@ -627,10 +648,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-06-28",
       "lockin_90d": "2026-08-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 9,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": 8,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 69,
+      "lockin_90d_days": 68,
       "lockin_90d_status": "active"
     },
     {
@@ -649,9 +670,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": 6,
+      "lockin_30d_days": 5,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 66,
+      "lockin_90d_days": 65,
       "lockin_90d_status": "active"
     },
     {
@@ -670,9 +691,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": 6,
+      "lockin_30d_days": 5,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 66,
+      "lockin_90d_days": 65,
       "lockin_90d_status": "active"
     },
     {
@@ -691,9 +712,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T00:16:38Z",
-      "lockin_30d_days": 6,
+      "lockin_30d_days": 5,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 66,
+      "lockin_90d_days": 65,
       "lockin_90d_status": "active"
     },
     {
@@ -712,9 +733,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T00:16:38Z",
-      "lockin_30d_days": 6,
+      "lockin_30d_days": 5,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 66,
+      "lockin_90d_days": 65,
       "lockin_90d_status": "active"
     },
     {
@@ -733,9 +754,9 @@
       "lockin_30d": "2026-06-28",
       "lockin_90d": "2026-08-27",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": 9,
+      "lockin_30d_days": 8,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 69,
+      "lockin_90d_days": 68,
       "lockin_90d_status": "active"
     },
     {
@@ -754,9 +775,9 @@
       "lockin_30d": "2026-06-23",
       "lockin_90d": "2026-08-22",
       "last_updated": "2026-06-17T06:20:58Z",
-      "lockin_30d_days": 4,
+      "lockin_30d_days": 3,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 64,
+      "lockin_90d_days": 63,
       "lockin_90d_status": "active"
     },
     {
@@ -774,10 +795,10 @@
       "anchor_value_cr": 277.78,
       "lockin_30d": "2026-06-04",
       "lockin_90d": "2026-08-03",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -15,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -16,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 45,
+      "lockin_90d_days": 44,
       "lockin_90d_status": "active"
     },
     {
@@ -795,10 +816,10 @@
       "anchor_value_cr": 45.01,
       "lockin_30d": "2026-05-14",
       "lockin_90d": "2026-07-13",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -36,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -37,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 24,
+      "lockin_90d_days": 23,
       "lockin_90d_status": "warning"
     },
     {
@@ -816,11 +837,11 @@
       "anchor_value_cr": 122.64,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -52,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -53,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 8,
-      "lockin_90d_status": "warning"
+      "lockin_90d_days": 7,
+      "lockin_90d_status": "critical"
     },
     {
       "source_url": "https://www.chittorgarh.com/ipo/powerica-ipo/2570/",
@@ -837,11 +858,11 @@
       "anchor_value_cr": 329.4,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -52,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -53,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 8,
-      "lockin_90d_status": "warning"
+      "lockin_90d_days": 7,
+      "lockin_90d_status": "critical"
     },
     {
       "source_url": "https://www.chittorgarh.com/ipo/amir-chand-jagdish-kumar-ipo/2501/",
@@ -858,11 +879,11 @@
       "anchor_value_cr": 60.0,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -52,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -53,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 8,
-      "lockin_90d_status": "warning"
+      "lockin_90d_days": 7,
+      "lockin_90d_status": "critical"
     },
     {
       "source_url": "https://www.chittorgarh.com/ipo/central-mine-planning-design-institute-ipo/2456/",
@@ -879,10 +900,10 @@
       "anchor_value_cr": 469.74,
       "lockin_30d": "2026-04-23",
       "lockin_90d": "2026-06-22",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -57,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -58,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 3,
+      "lockin_90d_days": 2,
       "lockin_90d_status": "critical"
     },
     {
@@ -900,10 +921,10 @@
       "anchor_value_cr": 120.0,
       "lockin_30d": "2026-04-19",
       "lockin_90d": "2026-06-18",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -61,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -62,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -1,
+      "lockin_90d_days": -2,
       "lockin_90d_status": "expired"
     },
     {
@@ -921,10 +942,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-04-17",
       "lockin_90d": "2026-06-16",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -63,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -64,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -3,
+      "lockin_90d_days": -4,
       "lockin_90d_status": "expired"
     },
     {
@@ -942,10 +963,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-04-16",
       "lockin_90d": "2026-06-15",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -64,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -65,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -4,
+      "lockin_90d_days": -5,
       "lockin_90d_status": "expired"
     },
     {
@@ -963,10 +984,10 @@
       "anchor_value_cr": 325.89,
       "lockin_30d": "2026-04-07",
       "lockin_90d": "2026-06-06",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -73,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -74,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -13,
+      "lockin_90d_days": -14,
       "lockin_90d_status": "expired"
     },
     {
@@ -984,10 +1005,10 @@
       "anchor_value_cr": 174.6,
       "lockin_30d": "2026-03-31",
       "lockin_90d": "2026-05-30",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -80,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -81,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -20,
+      "lockin_90d_days": -21,
       "lockin_90d_status": "expired"
     },
     {
@@ -1005,10 +1026,10 @@
       "anchor_value_cr": 170.58,
       "lockin_30d": "2026-03-28",
       "lockin_90d": "2026-05-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -83,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -84,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -23,
+      "lockin_90d_days": -24,
       "lockin_90d_status": "expired"
     },
     {
@@ -1026,10 +1047,10 @@
       "anchor_value_cr": 921.0,
       "lockin_30d": "2026-03-27",
       "lockin_90d": "2026-05-26",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -84,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -85,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -24,
+      "lockin_90d_days": -25,
       "lockin_90d_status": "expired"
     },
     {
@@ -1047,10 +1068,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-03-28",
       "lockin_90d": "2026-05-27",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -83,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -84,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -23,
+      "lockin_90d_days": -24,
       "lockin_90d_status": "expired"
     },
     {
@@ -1068,10 +1089,10 @@
       "anchor_value_cr": 49.5,
       "lockin_30d": "2026-03-26",
       "lockin_90d": "2026-05-25",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -85,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -86,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -25,
+      "lockin_90d_days": -26,
       "lockin_90d_status": "expired"
     },
     {
@@ -1089,10 +1110,10 @@
       "anchor_value_cr": 1248.25,
       "lockin_30d": "2026-03-13",
       "lockin_90d": "2026-05-12",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -98,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -99,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -38,
+      "lockin_90d_days": -39,
       "lockin_90d_status": "expired"
     },
     {
@@ -1110,10 +1131,10 @@
       "anchor_value_cr": 454.5,
       "lockin_30d": "2026-03-13",
       "lockin_90d": "2026-05-12",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -98,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -99,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -38,
+      "lockin_90d_days": -39,
       "lockin_90d_status": "expired"
     },
     {
@@ -1131,10 +1152,10 @@
       "anchor_value_cr": 856.02,
       "lockin_30d": "2026-02-21",
       "lockin_90d": "2026-04-22",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -118,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -119,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -58,
+      "lockin_90d_days": -59,
       "lockin_90d_status": "expired"
     },
     {
@@ -1153,9 +1174,9 @@
       "lockin_30d": "2026-02-17",
       "lockin_90d": "2026-04-18",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -122,
+      "lockin_30d_days": -123,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -62,
+      "lockin_90d_days": -63,
       "lockin_90d_status": "expired"
     },
     {
@@ -1174,9 +1195,9 @@
       "lockin_30d": "2026-02-12",
       "lockin_90d": "2026-04-13",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -127,
+      "lockin_30d_days": -128,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -67,
+      "lockin_90d_days": -68,
       "lockin_90d_status": "expired"
     },
     {
@@ -1194,10 +1215,10 @@
       "anchor_value_cr": 10.45,
       "lockin_30d": "2026-02-03",
       "lockin_90d": "2026-04-04",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -136,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -137,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -76,
+      "lockin_90d_days": -77,
       "lockin_90d_status": "expired"
     },
     {
@@ -1215,10 +1236,10 @@
       "anchor_value_cr": 23.97,
       "lockin_30d": "2026-01-30",
       "lockin_90d": "2026-03-31",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -140,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -141,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -80,
+      "lockin_90d_days": -81,
       "lockin_90d_status": "expired"
     },
     {
@@ -1236,10 +1257,10 @@
       "anchor_value_cr": 13.65,
       "lockin_30d": "2026-01-27",
       "lockin_90d": "2026-03-28",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -143,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -144,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -83,
+      "lockin_90d_days": -84,
       "lockin_90d_status": "expired"
     },
     {
@@ -1257,10 +1278,10 @@
       "anchor_value_cr": 29.91,
       "lockin_30d": "2026-01-29",
       "lockin_90d": "2026-03-30",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -141,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -142,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -81,
+      "lockin_90d_days": -82,
       "lockin_90d_status": "expired"
     },
     {
@@ -1278,10 +1299,10 @@
       "anchor_value_cr": 5.03,
       "lockin_30d": "2026-01-30",
       "lockin_90d": "2026-03-31",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -140,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -141,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -80,
+      "lockin_90d_days": -81,
       "lockin_90d_status": "expired"
     },
     {
@@ -1299,10 +1320,10 @@
       "anchor_value_cr": 100.01,
       "lockin_30d": "2026-01-24",
       "lockin_90d": "2026-03-25",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -146,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -147,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -86,
+      "lockin_90d_days": -87,
       "lockin_90d_status": "expired"
     },
     {
@@ -1320,10 +1341,10 @@
       "anchor_value_cr": 213.0,
       "lockin_30d": "2026-01-17",
       "lockin_90d": "2026-03-18",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -153,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -154,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -93,
+      "lockin_90d_days": -94,
       "lockin_90d_status": "expired"
     },
     {
@@ -1341,10 +1362,10 @@
       "anchor_value_cr": 3021.76,
       "lockin_30d": "2026-01-15",
       "lockin_90d": "2026-03-16",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -155,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -156,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -95,
+      "lockin_90d_days": -96,
       "lockin_90d_status": "expired"
     },
     {
@@ -1362,10 +1383,10 @@
       "anchor_value_cr": 276.0,
       "lockin_30d": "2026-01-13",
       "lockin_90d": "2026-03-14",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -157,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -158,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -97,
+      "lockin_90d_days": -98,
       "lockin_90d_status": "expired"
     },
     {
@@ -1383,10 +1404,10 @@
       "anchor_value_cr": 260.26,
       "lockin_30d": "2026-01-13",
       "lockin_90d": "2026-03-14",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -157,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -158,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -97,
+      "lockin_90d_days": -98,
       "lockin_90d_status": "expired"
     },
     {
@@ -1404,10 +1425,10 @@
       "anchor_value_cr": 78.05,
       "lockin_30d": "2025-02-02",
       "lockin_90d": "2025-04-02",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -502,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -503,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -443,
+      "lockin_90d_days": -444,
       "lockin_90d_status": "expired"
     },
     {
@@ -1425,10 +1446,10 @@
       "anchor_value_cr": 7.14,
       "lockin_30d": "2025-02-02",
       "lockin_90d": "2025-04-03",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -502,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -503,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -442,
+      "lockin_90d_days": -443,
       "lockin_90d_status": "expired"
     },
     {
@@ -1446,10 +1467,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2025-01-31",
       "lockin_90d": "2025-04-01",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -504,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -505,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -444,
+      "lockin_90d_days": -445,
       "lockin_90d_status": "expired"
     },
     {
@@ -1467,10 +1488,10 @@
       "anchor_value_cr": 12.75,
       "lockin_30d": "2025-01-30",
       "lockin_90d": "2025-03-31",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -505,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -506,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -445,
+      "lockin_90d_days": -446,
       "lockin_90d_status": "expired"
     },
     {
@@ -1488,10 +1509,10 @@
       "anchor_value_cr": 149.55,
       "lockin_30d": "2025-01-25",
       "lockin_90d": "2025-03-26",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -510,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -511,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -450,
+      "lockin_90d_days": -451,
       "lockin_90d_status": "expired"
     },
     {
@@ -1509,10 +1530,10 @@
       "anchor_value_cr": 375.0,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -511,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -512,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -451,
+      "lockin_90d_days": -452,
       "lockin_90d_status": "expired"
     },
     {
@@ -1530,10 +1551,10 @@
       "anchor_value_cr": 260.63,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -511,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -512,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -451,
+      "lockin_90d_days": -452,
       "lockin_90d_status": "expired"
     },
     {
@@ -1551,10 +1572,10 @@
       "anchor_value_cr": 719.55,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -511,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -512,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -451,
+      "lockin_90d_days": -452,
       "lockin_90d_status": "expired"
     },
     {
@@ -1572,10 +1593,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2025-01-23",
       "lockin_90d": "2025-03-24",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -512,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -513,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -452,
+      "lockin_90d_days": -453,
       "lockin_90d_status": "expired"
     },
     {
@@ -1593,10 +1614,10 @@
       "anchor_value_cr": 5.66,
       "lockin_30d": "2025-01-22",
       "lockin_90d": "2025-03-23",
-      "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -513,
+      "last_updated": "2026-06-20T22:48:20Z",
+      "lockin_30d_days": -514,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -453,
+      "lockin_90d_days": -454,
       "lockin_90d_status": "expired"
     },
     {
@@ -1614,7 +1635,7 @@
       "anchor_value_cr": null,
       "lockin_30d": null,
       "lockin_90d": null,
-      "last_updated": "2026-06-19T22:15:01Z",
+      "last_updated": "2026-06-20T22:48:22Z",
       "lockin_30d_days": null,
       "lockin_30d_status": null,
       "lockin_90d_days": null,
@@ -1635,7 +1656,7 @@
       "anchor_value_cr": null,
       "lockin_30d": null,
       "lockin_90d": null,
-      "last_updated": "2026-06-19T22:15:03Z",
+      "last_updated": "2026-06-20T22:48:24Z",
       "lockin_30d_days": null,
       "lockin_30d_status": null,
       "lockin_90d_days": null,
