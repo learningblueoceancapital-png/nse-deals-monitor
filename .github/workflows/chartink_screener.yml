@@ -1,0 +1,32 @@
+name: Chartink 5 Star Buy Screener
+
+on:
+  schedule:
+    - cron: '10 11 * * 1-5'   # 4:40 PM IST (UTC+5:30), Monday–Friday
+  workflow_dispatch:            # manual trigger from GitHub UI
+
+jobs:
+  run-screener:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install playwright python-dotenv
+
+      - name: Install Playwright Chromium + system deps
+        run: playwright install chromium --with-deps
+
+      - name: Run Chartink screener and email results
+        env:
+          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python chartink_screener.py
