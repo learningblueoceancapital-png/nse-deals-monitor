@@ -68,7 +68,7 @@ BROWSER_ARGS = [
 def fetch_screener() -> list[dict]:
     """
     Launch headless Chromium, load the Chartink screener page, wait for
-    the DataTable to populate, and return rows as list-of-dicts.
+    the results table to populate, and return rows as list-of-dicts.
     """
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, args=BROWSER_ARGS)
@@ -91,13 +91,12 @@ def fetch_screener() -> list[dict]:
             log.info("Loading screener page …")
             page.goto(SCREENER_URL, wait_until="domcontentloaded", timeout=60_000)
 
-            # Wait for the DataTable results to appear (rows inside the results table)
-            # Chartink renders results in a table inside #screener-results
+            # Chartink uses scan-results-table (Vue.js SPA, renders async)
             page.wait_for_selector(
-                "#screener-results table tbody tr",
-                timeout=45_000,
+                "table.scan-results-table tbody tr",
+                timeout=30_000,
             )
-            # Extra wait to let all rows render
+            # Small extra wait for all rows to render
             page.wait_for_timeout(3_000)
 
             rows = _extract_table(page)
@@ -105,50 +104,41 @@ def fetch_screener() -> list[dict]:
             return rows
 
         except PWTimeout:
-            log.warning("Timeout waiting for screener results — page may be empty or blocked")
+            log.warning("Timeout waiting for screener results — page may be empty or slow")
             return []
         finally:
             browser.close()
 
 
+def _clean_header(text: str) -> str:
+    """Strip the 'Sort table by … in … order' suffix Chartink adds to th text."""
+    return text.split("\n")[0].strip()
+
+
+def _clean_cell(text: str) -> str:
+    """Strip embedded buttons like 'Exclude ETFs' from cell text."""
+    return text.split("\n")[0].strip()
+
+
 def _extract_table(page) -> list[dict]:
-    """Pull header + data rows from the screener results DataTable."""
-    # Get column headers
-    headers = page.eval_on_selector_all(
-        "#screener-results table thead th",
+    """Pull header + data rows from the Chartink scan-results-table."""
+    raw_headers = page.eval_on_selector_all(
+        "table.scan-results-table thead th",
         "els => els.map(el => el.innerText.trim())",
     )
-    if not headers:
-        # Fallback: try the first table on the page
-        headers = page.eval_on_selector_all(
-            "table.table thead th",
-            "els => els.map(el => el.innerText.trim())",
-        )
+    headers = [_clean_header(h) for h in raw_headers if _clean_header(h)]
 
-    # Get data rows
-    row_data = page.eval_on_selector_all(
-        "#screener-results table tbody tr",
-        """rows => rows.map(tr =>
-            Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim())
-        )""",
-    )
-    if not row_data:
-        row_data = page.eval_on_selector_all(
-            "table.table tbody tr",
-            """rows => rows.map(tr =>
-                Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim())
-            )""",
-        )
-
-    if not headers or not row_data:
-        return []
+    raw_rows = page.query_selector_all("table.scan-results-table tbody tr")
 
     results = []
-    for row in row_data:
-        if not any(row):  # skip blank rows
+    for row in raw_rows:
+        cells = row.query_selector_all("td")
+        values = [_clean_cell(c.inner_text()) for c in cells]
+        if not any(values):
             continue
-        # Pad or trim row to match header count
-        padded = (row + [""] * len(headers))[: len(headers)]
+        # Drop trailing empty column (the '+' add-column placeholder)
+        values = values[: len(headers)]
+        padded = (values + [""] * len(headers))[: len(headers)]
         results.append(dict(zip(headers, padded)))
 
     return results
