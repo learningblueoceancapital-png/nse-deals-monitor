@@ -403,8 +403,12 @@ def send_email(path: Path) -> None:
     msg["Subject"]  = f"NSE Deals — {path.stem}"
     msg["From"]     = GMAIL_USER
     msg["To"]       = ", ".join(EMAIL_TO)
-    msg.set_content("Please find attached files")
-    msg.add_alternative("<html><body><p>Please find attached files</p></body></html>", subtype="html")
+    msg.set_content("Please find attached files\n\nRegards,\nAumkar")
+    msg.add_alternative(
+        "<html><body><p>Please find attached files</p>"
+        "<p>Regards,<br>Aumkar</p></body></html>",
+        subtype="html",
+    )
 
     with open(path, "rb") as fh:
         msg.add_attachment(

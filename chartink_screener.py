@@ -154,6 +154,7 @@ def _build_html(rows: list[dict], run_date: str) -> str:
         <html><body style="font-family:Calibri,Arial,sans-serif;color:#222;">
         <h2 style="color:#1F4E79;">{SCREENER_NAME} — {run_date}</h2>
         <p>No stocks matched the screener today.</p>
+        <p>Regards,<br>Aumkar</p>
         </body></html>
         """
 
@@ -190,6 +191,7 @@ def _build_html(rows: list[dict], run_date: str) -> str:
       <p style="color:#888;font-size:11px;margin-top:16px;">
         Source: <a href="{SCREENER_URL}" style="color:#1F4E79;">{SCREENER_URL}</a>
       </p>
+      <p style="margin-top:24px;">Regards,<br>Aumkar</p>
     </body>
     </html>
     """
@@ -209,6 +211,7 @@ def send_email(rows: list[dict], run_date: str) -> None:
         plain += "\t".join(headers) + "\n"
         for row in rows:
             plain += "\t".join(str(row.get(h, "")) for h in headers) + "\n"
+    plain += "\nRegards,\nAumkar"
 
     html = _build_html(rows, run_date)
 
