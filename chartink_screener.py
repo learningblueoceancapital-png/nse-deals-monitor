@@ -50,7 +50,7 @@ EMAIL_TO = [
 ]
 
 SCREENER_URL  = "https://chartink.com/screener/5-star-buy-2"
-SCREENER_NAME = "5 Star Buy"
+SCREENER_NAME = "5 Star Buys (RSI)"
 IST           = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
 
 BROWSER_ARGS = [
