@@ -37,16 +37,11 @@ log = logging.getLogger("chartink")
 # ── Config ─────────────────────────────────────────────────────────────────────
 GMAIL_USER     = os.getenv("GMAIL_USER", "")
 GMAIL_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
-_default_to    = (
-    "lavneesh@blueoceancapital.co.in,"
-    "operations@blueoceancapital.co.in,"
-    "research@blueoceancapital.co.in,"
-    "aumkar.rasal@gmail.com"
-)
 EMAIL_TO = [
-    e.strip()
-    for e in os.getenv("EMAIL_TO", _default_to).split(",")
-    if e.strip()
+    "lavneesh@blueoceancapital.co.in",
+    "operations@blueoceancapital.co.in",
+    "research@blueoceancapital.co.in",
+    "aumkar.rasal@gmail.com",
 ]
 
 SCREENER_URL  = "https://chartink.com/screener/5-star-buy-2"
