@@ -153,7 +153,7 @@ def _build_html(rows: list[dict], run_date: str) -> str:
         return f"""
         <html><body style="font-family:Calibri,Arial,sans-serif;color:#222;">
         <h2 style="color:#1F4E79;">{SCREENER_NAME} — {run_date}</h2>
-        <p>No stocks matched the screener today.</p>
+        <p>No present stocks under this chartink screener.</p>
         <p>Regards,<br>Aumkar</p>
         </body></html>
         """
