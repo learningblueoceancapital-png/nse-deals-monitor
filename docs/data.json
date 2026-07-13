@@ -1,8 +1,29 @@
 {
-  "generated_at": "2026-07-12T19:41:07Z",
-  "generated_date": "2026-07-12",
-  "total": 95,
+  "generated_at": "2026-07-13T20:00:43Z",
+  "generated_date": "2026-07-13",
+  "total": 96,
   "ipos": [
+    {
+      "source_url": "https://www.chittorgarh.com/ipo/sotefin-bharat-ipo/2836/",
+      "company_name": "Sotefin Bharat",
+      "category": "SME",
+      "fy": "FY2027",
+      "open_date": "2026-07-16",
+      "close_date": "2026-07-20",
+      "allotment_date": "2026-07-21",
+      "listing_date": "2026-07-23",
+      "issue_size_cr": 90.0,
+      "issue_price": "\u20b9178 to \u20b9187",
+      "anchor_shares": 1368000,
+      "anchor_value_cr": null,
+      "lockin_30d": "2026-08-20",
+      "lockin_90d": "2026-10-19",
+      "last_updated": "2026-07-13T20:00:42Z",
+      "lockin_30d_days": 38,
+      "lockin_30d_status": "active",
+      "lockin_90d_days": 98,
+      "lockin_90d_status": "active"
+    },
     {
       "source_url": "https://www.chittorgarh.com/ipo/sbi-funds-management-ipo/2949/",
       "company_name": "SBI Funds Management",
@@ -18,10 +39,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-16",
       "lockin_90d": "2026-10-15",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 35,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 34,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 95,
+      "lockin_90d_days": 94,
       "lockin_90d_status": "active"
     },
     {
@@ -39,10 +60,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-16",
       "lockin_90d": "2026-10-15",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 35,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 34,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 95,
+      "lockin_90d_days": 94,
       "lockin_90d_status": "active"
     },
     {
@@ -60,10 +81,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-16",
       "lockin_90d": "2026-10-15",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 35,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 34,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 95,
+      "lockin_90d_days": 94,
       "lockin_90d_status": "active"
     },
     {
@@ -81,10 +102,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-13",
       "lockin_90d": "2026-10-12",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 32,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 31,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 92,
+      "lockin_90d_days": 91,
       "lockin_90d_status": "active"
     },
     {
@@ -102,10 +123,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-13",
       "lockin_90d": "2026-10-12",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 32,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 31,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 92,
+      "lockin_90d_days": 91,
       "lockin_90d_status": "active"
     },
     {
@@ -123,10 +144,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-13",
       "lockin_90d": "2026-10-12",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 32,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 31,
       "lockin_30d_status": "active",
-      "lockin_90d_days": 92,
+      "lockin_90d_days": 91,
       "lockin_90d_status": "active"
     },
     {
@@ -144,10 +165,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-12",
       "lockin_90d": "2026-10-11",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 31,
-      "lockin_30d_status": "active",
-      "lockin_90d_days": 91,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 30,
+      "lockin_30d_status": "warning",
+      "lockin_90d_days": 90,
       "lockin_90d_status": "active"
     },
     {
@@ -165,10 +186,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-05",
       "lockin_90d": "2026-10-04",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 24,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 23,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 84,
+      "lockin_90d_days": 83,
       "lockin_90d_status": "active"
     },
     {
@@ -186,10 +207,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -207,10 +228,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -228,10 +249,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -249,10 +270,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -270,10 +291,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -291,10 +312,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-02",
       "lockin_90d": "2026-10-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 21,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 20,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 81,
+      "lockin_90d_days": 80,
       "lockin_90d_status": "active"
     },
     {
@@ -312,10 +333,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-01",
       "lockin_90d": "2026-09-30",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -334,9 +355,9 @@
       "lockin_30d": "2026-08-01",
       "lockin_90d": "2026-09-30",
       "last_updated": "2026-06-30T20:31:57Z",
-      "lockin_30d_days": 20,
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -354,10 +375,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-08-01",
       "lockin_90d": "2026-09-30",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 20,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 19,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 80,
+      "lockin_90d_days": 79,
       "lockin_90d_status": "active"
     },
     {
@@ -375,10 +396,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-31",
       "lockin_90d": "2026-09-29",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 19,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 18,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 79,
+      "lockin_90d_days": 78,
       "lockin_90d_status": "active"
     },
     {
@@ -396,10 +417,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-31",
       "lockin_90d": "2026-09-29",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 19,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 18,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 79,
+      "lockin_90d_days": 78,
       "lockin_90d_status": "active"
     },
     {
@@ -418,9 +439,9 @@
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
       "last_updated": "2026-06-24T20:19:52Z",
-      "lockin_30d_days": 18,
+      "lockin_30d_days": 17,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 78,
+      "lockin_90d_days": 77,
       "lockin_90d_status": "active"
     },
     {
@@ -438,10 +459,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 18,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 17,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 78,
+      "lockin_90d_days": 77,
       "lockin_90d_status": "active"
     },
     {
@@ -460,9 +481,9 @@
       "lockin_30d": "2026-07-30",
       "lockin_90d": "2026-09-28",
       "last_updated": "2026-06-29T20:27:11Z",
-      "lockin_30d_days": 18,
+      "lockin_30d_days": 17,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 78,
+      "lockin_90d_days": 77,
       "lockin_90d_status": "active"
     },
     {
@@ -480,10 +501,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 17,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 16,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 77,
+      "lockin_90d_days": 76,
       "lockin_90d_status": "active"
     },
     {
@@ -501,10 +522,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 17,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 16,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 77,
+      "lockin_90d_days": 76,
       "lockin_90d_status": "active"
     },
     {
@@ -522,10 +543,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 17,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 16,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 77,
+      "lockin_90d_days": 76,
       "lockin_90d_status": "active"
     },
     {
@@ -543,10 +564,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-29",
       "lockin_90d": "2026-09-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 17,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 16,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 77,
+      "lockin_90d_days": 76,
       "lockin_90d_status": "active"
     },
     {
@@ -564,10 +585,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-24",
       "lockin_90d": "2026-09-22",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 12,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 11,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 72,
+      "lockin_90d_days": 71,
       "lockin_90d_status": "active"
     },
     {
@@ -585,10 +606,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-24",
       "lockin_90d": "2026-09-22",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 12,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 11,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 72,
+      "lockin_90d_days": 71,
       "lockin_90d_status": "active"
     },
     {
@@ -606,10 +627,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-23",
       "lockin_90d": "2026-09-21",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 11,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 10,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 71,
+      "lockin_90d_days": 70,
       "lockin_90d_status": "active"
     },
     {
@@ -627,10 +648,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-23",
       "lockin_90d": "2026-09-21",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 11,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 10,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 71,
+      "lockin_90d_days": 70,
       "lockin_90d_status": "active"
     },
     {
@@ -648,10 +669,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 10,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 9,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 70,
+      "lockin_90d_days": 69,
       "lockin_90d_status": "active"
     },
     {
@@ -669,10 +690,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 10,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 9,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 70,
+      "lockin_90d_days": 69,
       "lockin_90d_status": "active"
     },
     {
@@ -690,10 +711,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 10,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 9,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 70,
+      "lockin_90d_days": 69,
       "lockin_90d_status": "active"
     },
     {
@@ -711,10 +732,10 @@
       "anchor_value_cr": 31.34,
       "lockin_30d": "2026-07-22",
       "lockin_90d": "2026-09-20",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 10,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 9,
       "lockin_30d_status": "warning",
-      "lockin_90d_days": 70,
+      "lockin_90d_days": 69,
       "lockin_90d_status": "active"
     },
     {
@@ -732,10 +753,10 @@
       "anchor_value_cr": 15.46,
       "lockin_30d": "2026-07-17",
       "lockin_90d": "2026-09-15",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 5,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 4,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 65,
+      "lockin_90d_days": 64,
       "lockin_90d_status": "active"
     },
     {
@@ -753,10 +774,10 @@
       "anchor_value_cr": 19.34,
       "lockin_30d": "2026-07-16",
       "lockin_90d": "2026-09-14",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 4,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 3,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 64,
+      "lockin_90d_days": 63,
       "lockin_90d_status": "active"
     },
     {
@@ -774,10 +795,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-07-15",
       "lockin_90d": "2026-09-13",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": 3,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": 2,
       "lockin_30d_status": "critical",
-      "lockin_90d_days": 63,
+      "lockin_90d_days": 62,
       "lockin_90d_status": "active"
     },
     {
@@ -795,10 +816,10 @@
       "anchor_value_cr": 41.66,
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -3,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -4,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 57,
+      "lockin_90d_days": 56,
       "lockin_90d_status": "active"
     },
     {
@@ -817,9 +838,9 @@
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
       "last_updated": "2026-07-07T20:27:30Z",
-      "lockin_30d_days": -3,
+      "lockin_30d_days": -4,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 57,
+      "lockin_90d_days": 56,
       "lockin_90d_status": "active"
     },
     {
@@ -838,9 +859,9 @@
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
       "last_updated": "2026-07-01T20:27:04Z",
-      "lockin_30d_days": -3,
+      "lockin_30d_days": -4,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 57,
+      "lockin_90d_days": 56,
       "lockin_90d_status": "active"
     },
     {
@@ -859,9 +880,9 @@
       "lockin_30d": "2026-07-09",
       "lockin_90d": "2026-09-07",
       "last_updated": "2026-07-02T20:05:37Z",
-      "lockin_30d_days": -3,
+      "lockin_30d_days": -4,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 57,
+      "lockin_90d_days": 56,
       "lockin_90d_status": "active"
     },
     {
@@ -879,10 +900,10 @@
       "anchor_value_cr": 188.44,
       "lockin_30d": "2026-07-07",
       "lockin_90d": "2026-09-05",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -5,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -6,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 55,
+      "lockin_90d_days": 54,
       "lockin_90d_status": "active"
     },
     {
@@ -901,9 +922,9 @@
       "lockin_30d": "2026-07-03",
       "lockin_90d": "2026-09-01",
       "last_updated": "2026-06-24T20:19:52Z",
-      "lockin_30d_days": -9,
+      "lockin_30d_days": -10,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 51,
+      "lockin_90d_days": 50,
       "lockin_90d_status": "active"
     },
     {
@@ -922,9 +943,9 @@
       "lockin_30d": "2026-07-03",
       "lockin_90d": "2026-09-01",
       "last_updated": "2026-06-22T21:23:08Z",
-      "lockin_30d_days": -9,
+      "lockin_30d_days": -10,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 51,
+      "lockin_90d_days": 50,
       "lockin_90d_status": "active"
     },
     {
@@ -943,9 +964,9 @@
       "lockin_30d": "2026-07-04",
       "lockin_90d": "2026-09-02",
       "last_updated": "2026-06-22T21:23:08Z",
-      "lockin_30d_days": -8,
+      "lockin_30d_days": -9,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 52,
+      "lockin_90d_days": 51,
       "lockin_90d_status": "active"
     },
     {
@@ -964,9 +985,9 @@
       "lockin_30d": "2026-06-30",
       "lockin_90d": "2026-08-29",
       "last_updated": "2026-06-22T21:23:08Z",
-      "lockin_30d_days": -12,
+      "lockin_30d_days": -13,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 48,
+      "lockin_90d_days": 47,
       "lockin_90d_status": "active"
     },
     {
@@ -985,9 +1006,9 @@
       "lockin_30d": "2026-06-28",
       "lockin_90d": "2026-08-27",
       "last_updated": "2026-06-21T20:14:20Z",
-      "lockin_30d_days": -14,
+      "lockin_30d_days": -15,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 46,
+      "lockin_90d_days": 45,
       "lockin_90d_status": "active"
     },
     {
@@ -1006,9 +1027,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T22:14:58Z",
-      "lockin_30d_days": -17,
+      "lockin_30d_days": -18,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 43,
+      "lockin_90d_days": 42,
       "lockin_90d_status": "active"
     },
     {
@@ -1027,9 +1048,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -17,
+      "lockin_30d_days": -18,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 43,
+      "lockin_90d_days": 42,
       "lockin_90d_status": "active"
     },
     {
@@ -1048,9 +1069,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T00:16:38Z",
-      "lockin_30d_days": -17,
+      "lockin_30d_days": -18,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 43,
+      "lockin_90d_days": 42,
       "lockin_90d_status": "active"
     },
     {
@@ -1069,9 +1090,9 @@
       "lockin_30d": "2026-06-25",
       "lockin_90d": "2026-08-24",
       "last_updated": "2026-06-19T00:16:38Z",
-      "lockin_30d_days": -17,
+      "lockin_30d_days": -18,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 43,
+      "lockin_90d_days": 42,
       "lockin_90d_status": "active"
     },
     {
@@ -1090,9 +1111,9 @@
       "lockin_30d": "2026-06-28",
       "lockin_90d": "2026-08-27",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -14,
+      "lockin_30d_days": -15,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 46,
+      "lockin_90d_days": 45,
       "lockin_90d_status": "active"
     },
     {
@@ -1111,9 +1132,9 @@
       "lockin_30d": "2026-06-23",
       "lockin_90d": "2026-08-22",
       "last_updated": "2026-06-17T06:20:58Z",
-      "lockin_30d_days": -19,
+      "lockin_30d_days": -20,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 41,
+      "lockin_90d_days": 40,
       "lockin_90d_status": "active"
     },
     {
@@ -1131,10 +1152,10 @@
       "anchor_value_cr": 277.78,
       "lockin_30d": "2026-06-04",
       "lockin_90d": "2026-08-03",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -38,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -39,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 22,
+      "lockin_90d_days": 21,
       "lockin_90d_status": "warning"
     },
     {
@@ -1152,10 +1173,10 @@
       "anchor_value_cr": 45.01,
       "lockin_30d": "2026-05-14",
       "lockin_90d": "2026-07-13",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -59,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -60,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": 1,
+      "lockin_90d_days": 0,
       "lockin_90d_status": "critical"
     },
     {
@@ -1173,10 +1194,10 @@
       "anchor_value_cr": 122.64,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -75,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -76,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -15,
+      "lockin_90d_days": -16,
       "lockin_90d_status": "expired"
     },
     {
@@ -1194,10 +1215,10 @@
       "anchor_value_cr": 329.4,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -75,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -76,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -15,
+      "lockin_90d_days": -16,
       "lockin_90d_status": "expired"
     },
     {
@@ -1215,10 +1236,10 @@
       "anchor_value_cr": 60.0,
       "lockin_30d": "2026-04-28",
       "lockin_90d": "2026-06-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -75,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -76,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -15,
+      "lockin_90d_days": -16,
       "lockin_90d_status": "expired"
     },
     {
@@ -1236,10 +1257,10 @@
       "anchor_value_cr": 469.74,
       "lockin_30d": "2026-04-23",
       "lockin_90d": "2026-06-22",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -80,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -81,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -20,
+      "lockin_90d_days": -21,
       "lockin_90d_status": "expired"
     },
     {
@@ -1257,10 +1278,10 @@
       "anchor_value_cr": 120.0,
       "lockin_30d": "2026-04-19",
       "lockin_90d": "2026-06-18",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -84,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -85,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -24,
+      "lockin_90d_days": -25,
       "lockin_90d_status": "expired"
     },
     {
@@ -1278,10 +1299,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-04-17",
       "lockin_90d": "2026-06-16",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -86,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -87,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -26,
+      "lockin_90d_days": -27,
       "lockin_90d_status": "expired"
     },
     {
@@ -1299,10 +1320,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2026-04-16",
       "lockin_90d": "2026-06-15",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -87,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -88,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -27,
+      "lockin_90d_days": -28,
       "lockin_90d_status": "expired"
     },
     {
@@ -1320,10 +1341,10 @@
       "anchor_value_cr": 325.89,
       "lockin_30d": "2026-04-07",
       "lockin_90d": "2026-06-06",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -96,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -97,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -36,
+      "lockin_90d_days": -37,
       "lockin_90d_status": "expired"
     },
     {
@@ -1341,10 +1362,10 @@
       "anchor_value_cr": 174.6,
       "lockin_30d": "2026-03-31",
       "lockin_90d": "2026-05-30",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -103,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -104,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -43,
+      "lockin_90d_days": -44,
       "lockin_90d_status": "expired"
     },
     {
@@ -1362,10 +1383,10 @@
       "anchor_value_cr": 170.58,
       "lockin_30d": "2026-03-28",
       "lockin_90d": "2026-05-27",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -106,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -107,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -46,
+      "lockin_90d_days": -47,
       "lockin_90d_status": "expired"
     },
     {
@@ -1383,10 +1404,10 @@
       "anchor_value_cr": 921.0,
       "lockin_30d": "2026-03-27",
       "lockin_90d": "2026-05-26",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -107,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -108,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -47,
+      "lockin_90d_days": -48,
       "lockin_90d_status": "expired"
     },
     {
@@ -1405,9 +1426,9 @@
       "lockin_30d": "2026-03-28",
       "lockin_90d": "2026-05-27",
       "last_updated": "2026-07-08T20:06:16Z",
-      "lockin_30d_days": -106,
+      "lockin_30d_days": -107,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -46,
+      "lockin_90d_days": -47,
       "lockin_90d_status": "expired"
     },
     {
@@ -1426,9 +1447,9 @@
       "lockin_30d": "2026-03-26",
       "lockin_90d": "2026-05-25",
       "last_updated": "2026-07-05T19:53:39Z",
-      "lockin_30d_days": -108,
+      "lockin_30d_days": -109,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -48,
+      "lockin_90d_days": -49,
       "lockin_90d_status": "expired"
     },
     {
@@ -1447,9 +1468,9 @@
       "lockin_30d": "2026-03-13",
       "lockin_90d": "2026-05-12",
       "last_updated": "2026-07-03T19:59:11Z",
-      "lockin_30d_days": -121,
+      "lockin_30d_days": -122,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -61,
+      "lockin_90d_days": -62,
       "lockin_90d_status": "expired"
     },
     {
@@ -1468,9 +1489,9 @@
       "lockin_30d": "2026-03-13",
       "lockin_90d": "2026-05-12",
       "last_updated": "2026-07-01T20:27:04Z",
-      "lockin_30d_days": -121,
+      "lockin_30d_days": -122,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -61,
+      "lockin_90d_days": -62,
       "lockin_90d_status": "expired"
     },
     {
@@ -1489,9 +1510,9 @@
       "lockin_30d": "2026-02-21",
       "lockin_90d": "2026-04-22",
       "last_updated": "2026-06-23T20:38:41Z",
-      "lockin_30d_days": -141,
+      "lockin_30d_days": -142,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -81,
+      "lockin_90d_days": -82,
       "lockin_90d_status": "expired"
     },
     {
@@ -1510,9 +1531,9 @@
       "lockin_30d": "2026-02-17",
       "lockin_90d": "2026-04-18",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -145,
+      "lockin_30d_days": -146,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -85,
+      "lockin_90d_days": -86,
       "lockin_90d_status": "expired"
     },
     {
@@ -1531,9 +1552,9 @@
       "lockin_30d": "2026-02-12",
       "lockin_90d": "2026-04-13",
       "last_updated": "2026-06-17T23:59:48Z",
-      "lockin_30d_days": -150,
+      "lockin_30d_days": -151,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -90,
+      "lockin_90d_days": -91,
       "lockin_90d_status": "expired"
     },
     {
@@ -1551,10 +1572,10 @@
       "anchor_value_cr": 10.45,
       "lockin_30d": "2026-02-03",
       "lockin_90d": "2026-04-04",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -159,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -160,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -99,
+      "lockin_90d_days": -100,
       "lockin_90d_status": "expired"
     },
     {
@@ -1572,10 +1593,10 @@
       "anchor_value_cr": 23.97,
       "lockin_30d": "2026-01-30",
       "lockin_90d": "2026-03-31",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -163,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -164,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -103,
+      "lockin_90d_days": -104,
       "lockin_90d_status": "expired"
     },
     {
@@ -1593,10 +1614,10 @@
       "anchor_value_cr": 13.65,
       "lockin_30d": "2026-01-27",
       "lockin_90d": "2026-03-28",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -166,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -167,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -106,
+      "lockin_90d_days": -107,
       "lockin_90d_status": "expired"
     },
     {
@@ -1614,10 +1635,10 @@
       "anchor_value_cr": 29.91,
       "lockin_30d": "2026-01-29",
       "lockin_90d": "2026-03-30",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -164,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -165,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -104,
+      "lockin_90d_days": -105,
       "lockin_90d_status": "expired"
     },
     {
@@ -1635,10 +1656,10 @@
       "anchor_value_cr": 5.03,
       "lockin_30d": "2026-01-30",
       "lockin_90d": "2026-03-31",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -163,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -164,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -103,
+      "lockin_90d_days": -104,
       "lockin_90d_status": "expired"
     },
     {
@@ -1656,10 +1677,10 @@
       "anchor_value_cr": 100.01,
       "lockin_30d": "2026-01-24",
       "lockin_90d": "2026-03-25",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -169,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -170,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -109,
+      "lockin_90d_days": -110,
       "lockin_90d_status": "expired"
     },
     {
@@ -1677,10 +1698,10 @@
       "anchor_value_cr": 213.0,
       "lockin_30d": "2026-01-17",
       "lockin_90d": "2026-03-18",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -176,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -177,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -116,
+      "lockin_90d_days": -117,
       "lockin_90d_status": "expired"
     },
     {
@@ -1698,10 +1719,10 @@
       "anchor_value_cr": 3021.76,
       "lockin_30d": "2026-01-15",
       "lockin_90d": "2026-03-16",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -178,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -179,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -118,
+      "lockin_90d_days": -119,
       "lockin_90d_status": "expired"
     },
     {
@@ -1719,10 +1740,10 @@
       "anchor_value_cr": 276.0,
       "lockin_30d": "2026-01-13",
       "lockin_90d": "2026-03-14",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -180,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -181,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -120,
+      "lockin_90d_days": -121,
       "lockin_90d_status": "expired"
     },
     {
@@ -1740,10 +1761,10 @@
       "anchor_value_cr": 260.26,
       "lockin_30d": "2026-01-13",
       "lockin_90d": "2026-03-14",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -180,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -181,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -120,
+      "lockin_90d_days": -121,
       "lockin_90d_status": "expired"
     },
     {
@@ -1761,10 +1782,10 @@
       "anchor_value_cr": 78.05,
       "lockin_30d": "2025-02-02",
       "lockin_90d": "2025-04-02",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -525,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -526,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -466,
+      "lockin_90d_days": -467,
       "lockin_90d_status": "expired"
     },
     {
@@ -1782,10 +1803,10 @@
       "anchor_value_cr": 7.14,
       "lockin_30d": "2025-02-02",
       "lockin_90d": "2025-04-03",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -525,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -526,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -465,
+      "lockin_90d_days": -466,
       "lockin_90d_status": "expired"
     },
     {
@@ -1803,10 +1824,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2025-01-31",
       "lockin_90d": "2025-04-01",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -527,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -528,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -467,
+      "lockin_90d_days": -468,
       "lockin_90d_status": "expired"
     },
     {
@@ -1824,10 +1845,10 @@
       "anchor_value_cr": 12.75,
       "lockin_30d": "2025-01-30",
       "lockin_90d": "2025-03-31",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -528,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -529,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -468,
+      "lockin_90d_days": -469,
       "lockin_90d_status": "expired"
     },
     {
@@ -1845,10 +1866,10 @@
       "anchor_value_cr": 149.55,
       "lockin_30d": "2025-01-25",
       "lockin_90d": "2025-03-26",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -533,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -534,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -473,
+      "lockin_90d_days": -474,
       "lockin_90d_status": "expired"
     },
     {
@@ -1866,10 +1887,10 @@
       "anchor_value_cr": 375.0,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -534,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -535,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -474,
+      "lockin_90d_days": -475,
       "lockin_90d_status": "expired"
     },
     {
@@ -1887,10 +1908,10 @@
       "anchor_value_cr": 260.63,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -534,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -535,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -474,
+      "lockin_90d_days": -475,
       "lockin_90d_status": "expired"
     },
     {
@@ -1908,10 +1929,10 @@
       "anchor_value_cr": 719.55,
       "lockin_30d": "2025-01-24",
       "lockin_90d": "2025-03-25",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -534,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -535,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -474,
+      "lockin_90d_days": -475,
       "lockin_90d_status": "expired"
     },
     {
@@ -1929,10 +1950,10 @@
       "anchor_value_cr": null,
       "lockin_30d": "2025-01-23",
       "lockin_90d": "2025-03-24",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -535,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -536,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -475,
+      "lockin_90d_days": -476,
       "lockin_90d_status": "expired"
     },
     {
@@ -1950,10 +1971,10 @@
       "anchor_value_cr": 5.66,
       "lockin_30d": "2025-01-22",
       "lockin_90d": "2025-03-23",
-      "last_updated": "2026-07-12T19:41:03Z",
-      "lockin_30d_days": -536,
+      "last_updated": "2026-07-13T20:00:35Z",
+      "lockin_30d_days": -537,
       "lockin_30d_status": "expired",
-      "lockin_90d_days": -476,
+      "lockin_90d_days": -477,
       "lockin_90d_status": "expired"
     },
     {
@@ -1971,7 +1992,7 @@
       "anchor_value_cr": null,
       "lockin_30d": null,
       "lockin_90d": null,
-      "last_updated": "2026-07-12T19:41:04Z",
+      "last_updated": "2026-07-13T20:00:37Z",
       "lockin_30d_days": null,
       "lockin_30d_status": null,
       "lockin_90d_days": null,
@@ -1992,7 +2013,7 @@
       "anchor_value_cr": null,
       "lockin_30d": null,
       "lockin_90d": null,
-      "last_updated": "2026-07-12T19:41:06Z",
+      "last_updated": "2026-07-13T20:00:39Z",
       "lockin_30d_days": null,
       "lockin_30d_status": null,
       "lockin_90d_days": null,
