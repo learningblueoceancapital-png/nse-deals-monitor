@@ -2,8 +2,13 @@ name: Chartink 5 Star Buy Screener
 
 on:
   schedule:
-    - cron: '10 11 * * 1-5'   # 4:40 PM IST (UTC+5:30), Monday–Friday
+    - cron: '10 11 * * 1-5'   # 4:40 PM IST (UTC+5:30), Monday–Friday — primary run
+    - cron: '40 11 * * 1-5'   # 5:10 PM IST — backup, in case the primary trigger is dropped
   workflow_dispatch:            # manual trigger from GitHub UI
+
+permissions:
+  actions: read
+  contents: read
 
 jobs:
   run-screener:
@@ -14,18 +19,37 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Skip if a run already succeeded recently
+        id: guard
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RECENT=$(gh run list \
+            --workflow "chartink_screener.yml" \
+            --status success \
+            --limit 5 \
+            --json createdAt \
+            --jq '[.[] | select((now - (.createdAt | fromdateiso8601)) < 10800)] | length')
+          echo "Recent successful runs (last 3h): $RECENT"
+          echo "recent_success=$RECENT" >> "$GITHUB_OUTPUT"
+
       - name: Set up Python 3.12
+        if: github.event_name != 'schedule' || steps.guard.outputs.recent_success == '0'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Install Python dependencies
+        if: github.event_name != 'schedule' || steps.guard.outputs.recent_success == '0'
         run: pip install playwright python-dotenv
 
       - name: Install Playwright Chromium + system deps
+        if: github.event_name != 'schedule' || steps.guard.outputs.recent_success == '0'
         run: playwright install chromium --with-deps
 
       - name: Run Chartink screener and email results
+        if: github.event_name != 'schedule' || steps.guard.outputs.recent_success == '0'
         env:
           GMAIL_USER:         ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
