@@ -302,6 +302,17 @@ def parse_bse_date(raw: str) -> str | None:
     return None
 
 
+def fy_label(date_str: str | None) -> str:
+    """Indian fiscal year (Apr-Mar) containing the given date, e.g.
+    2024-04-05 -> FY2025, 2025-02-10 -> FY2025. Matches the convention
+    already used by ipo_scraper.py elsewhere in this repo."""
+    if not date_str:
+        return "N/A"
+    d = datetime.strptime(date_str, "%Y-%m-%d")
+    fy_year = d.year if d.month >= 4 else d.year - 1
+    return f"FY{fy_year + 1}"
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Per-company history check & classification
 # ══════════════════════════════════════════════════════════════════════════════
@@ -762,11 +773,11 @@ def sorted_master_rows(conn: sqlite3.Connection) -> list:
 
 
 HEADERS = ["Company", "Dividend Declared (Rs/Share)", "Dividend Payout %",
-           "Classification", "CMP", "Announcement Date", "Market Cap", "Source"]
+           "Classification", "CMP", "FY", "Announcement Date", "Market Cap", "Source"]
 
 
 RECENT_HEADERS = ["Company", "Dividend Declared (Rs/Share)", "Dividend Payout %",
-                  "CMP", "Announcement Date", "Market Cap", "Years Since Listing", "Source"]
+                  "CMP", "FY", "Announcement Date", "Market Cap", "Years Since Listing", "Source"]
 
 
 def export_csv(conn: sqlite3.Connection) -> None:
@@ -782,7 +793,7 @@ def export_csv(conn: sqlite3.Connection) -> None:
                 r["company_name"], r["dividend_rs"],
                 r["payout_pct"] if r["payout_pct"] is not None else "N/A",
                 r["classification"], r["cmp"] if r["cmp"] is not None else "N/A",
-                r["announcement_date"], r["market_cap"], r["citation"],
+                fy_label(r["announcement_date"]), r["announcement_date"], r["market_cap"], r["citation"],
             ])
     log.info("Exported %d qualifying rows -> %s", len(final_rows), CSV_OUT)
 
@@ -798,8 +809,8 @@ def export_csv(conn: sqlite3.Connection) -> None:
             w.writerow([
                 r["company_name"], r["dividend_rs"],
                 r["payout_pct"] if r["payout_pct"] is not None else "N/A",
-                r["cmp"] if r["cmp"] is not None else "N/A", r["announcement_date"],
-                r["market_cap"], r["years_since_listing"], r["citation"],
+                r["cmp"] if r["cmp"] is not None else "N/A", fy_label(r["announcement_date"]),
+                r["announcement_date"], r["market_cap"], r["years_since_listing"], r["citation"],
             ])
     log.info("Exported %d recent-listing first-dividend rows -> %s", len(recent_rows), RECENT_CSV_OUT)
 
@@ -891,6 +902,7 @@ def export_xlsx(conn: sqlite3.Connection) -> None:
             (cls, sty["left"], None),
             (r["cmp"] if r["cmp"] is not None else "N/A", sty["right"],
              NUM_FMT_RS if r["cmp"] is not None else None),
+            (fy_label(r["announcement_date"]), sty["center"], None),
             (r["announcement_date"], sty["center"], None),
             (r["market_cap"], sty["right"], None),
             ("BSE ↗", sty["center"], None),
@@ -908,7 +920,7 @@ def export_xlsx(conn: sqlite3.Connection) -> None:
             if numfmt:
                 cell.number_format = numfmt
 
-    widths = [32, 15, 13, 26, 11, 15, 14, 9]
+    widths = [32, 15, 13, 26, 11, 8, 15, 14, 9]
     for c, w in enumerate(widths, start=1):
         ws.column_dimensions[get_column_letter(c)].width = w
     ws.freeze_panes = f"A{HDR_ROW + 1}"
@@ -936,6 +948,7 @@ def export_xlsx(conn: sqlite3.Connection) -> None:
              NUM_FMT_PCT if r["payout_pct"] is not None else None),
             (r["cmp"] if r["cmp"] is not None else "N/A", sty["right"],
              NUM_FMT_RS if r["cmp"] is not None else None),
+            (fy_label(r["announcement_date"]), sty["center"], None),
             (r["announcement_date"], sty["center"], None),
             (r["market_cap"], sty["right"], None),
             (r["years_since_listing"], sty["right"], '0.0'),
@@ -952,7 +965,7 @@ def export_xlsx(conn: sqlite3.Connection) -> None:
                 cell.font = sty["body_font"]
             if numfmt:
                 cell.number_format = numfmt
-    for c, w in enumerate([32, 15, 13, 11, 15, 14, 15, 9], start=1):
+    for c, w in enumerate([32, 15, 13, 11, 8, 15, 14, 15, 9], start=1):
         ws3.column_dimensions[get_column_letter(c)].width = w
     ws3.freeze_panes = f"A{HDR_ROW + 1}"
     ws3.auto_filter.ref = f"A{HDR_ROW}:{get_column_letter(n3)}{max(HDR_ROW, len(recent_rows) + HDR_ROW)}"
