@@ -1,0 +1,66 @@
+name: Dividend Initiation Monitor
+
+on:
+  schedule:
+    # 4:00 PM IST (UTC+5:30) every Friday = 10:30 UTC
+    - cron: '30 10 * * 5'
+  workflow_dispatch:
+    inputs:
+      force_phase1:
+        description: 'Force a full historical re-backfill (FY2025 -> today)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write   # needed to commit dividend_data.db + the Excel tracker back to repo
+
+jobs:
+  scan-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install requests openpyxl playwright
+
+      - name: Install Playwright Chromium + system deps
+        run: playwright install chromium --with-deps
+
+      - name: Run Dividend Initiation Monitor — incremental
+        if: ${{ github.event.inputs.force_phase1 != 'true' }}
+        run: python dividend_tracker.py
+
+      - name: Run Dividend Initiation Monitor — forced full backfill
+        if: ${{ github.event.inputs.force_phase1 == 'true' }}
+        run: python dividend_tracker.py --force-phase1
+
+      - name: Commit updated tracker
+        run: |
+          git config user.name  "Dividend Monitor Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dividend_data.db Dividend_Initiation_Tracker.csv Recent_Listing_First_Dividends.csv
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            UPDATED=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "chore: update dividend initiation tracker [${UPDATED}]"
+            git push
+          fi
+
+      - name: Upload Excel tracker as build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dividend-initiation-tracker
+          path: Dividend_Initiation_Tracker.xlsx
+          retention-days: 90
