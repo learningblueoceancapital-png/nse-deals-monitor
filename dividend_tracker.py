@@ -804,94 +804,186 @@ def export_csv(conn: sqlite3.Connection) -> None:
     log.info("Exported %d recent-listing first-dividend rows -> %s", len(recent_rows), RECENT_CSV_OUT)
 
 
+CLASS_FILL = {
+    "First Ever Dividend Since Listing": "BDD7EE",
+    "First Dividend in 15 Years":        "D9E8F5",
+    "First Dividend in 10 Years":        "E8F1FA",
+    "First Dividend in 5 Years":         "F2F8FC",
+}
+
+BSE_CORPACT_PAGE = "https://www.bseindia.com/corporates/corporate_act.aspx"
+
+
+def _style_workbook_common():
+    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    return {
+        "hdr_fill":  PatternFill("solid", fgColor="1F4E79"),
+        "hdr_font":  Font(bold=True, color="FFFFFF", name="Calibri", size=11),
+        "title_font": Font(bold=True, color="1F4E79", name="Calibri", size=14),
+        "sub_font":  Font(italic=True, color="5A6B7B", name="Calibri", size=9),
+        "body_font": Font(name="Calibri", size=10),
+        "link_font": Font(name="Calibri", size=10, color="1155CC", underline="single"),
+        "border":    Border(*[Side(style="thin", color="C7D3DE")] * 4),
+        "center":    Alignment(horizontal="center", vertical="center"),
+        "left":      Alignment(horizontal="left", vertical="center"),
+        "right":     Alignment(horizontal="right", vertical="center"),
+    }
+
+
+def _write_title_block(ws, sty, title: str, subtitle: str, ncols: int):
+    from openpyxl.utils import get_column_letter
+    ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=ncols)
+    c = ws.cell(row=1, column=1, value=f"BlueOcean Capital — {title}")
+    c.font = sty["title_font"]
+    c.alignment = sty["left"]
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=ncols)
+    c2 = ws.cell(row=2, column=1, value=subtitle)
+    c2.font = sty["sub_font"]
+    c2.alignment = sty["left"]
+    ws.row_dimensions[1].height = 22
+    ws.row_dimensions[3].height = 6  # spacer
+
+
+def _write_header_row(ws, sty, headers, row: int):
+    for c, h in enumerate(headers, start=1):
+        cell = ws.cell(row=row, column=c, value=h)
+        cell.fill = sty["hdr_fill"]
+        cell.font = sty["hdr_font"]
+        cell.alignment = sty["center"]
+        cell.border = sty["border"]
+    ws.row_dimensions[row].height = 20
+
+
 def export_xlsx(conn: sqlite3.Connection) -> None:
     from openpyxl import Workbook
-    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    from openpyxl.styles import PatternFill
     from openpyxl.utils import get_column_letter
 
-    final_rows = sorted_master_rows(conn)
-
+    generated = datetime.now(timezone.utc).strftime("%d %b %Y, %H:%M UTC")
+    sty = _style_workbook_common()
     wb = Workbook()
+
+    # ── Sheet 1: Main tracker ──────────────────────────────────────────
+    final_rows = sorted_master_rows(conn)
     ws = wb.active
     ws.title = "Dividend Initiation Tracker"
+    HDR_ROW = 4
+    ncols = len(HEADERS)
+    _write_title_block(ws, sty, "Dividend Initiation Monitor",
+                        f"Companies paying a dividend after a 5/10/15-year gap, or for the first "
+                        f"time since listing  |  {len(final_rows)} companies  |  generated {generated}",
+                        ncols)
+    _write_header_row(ws, sty, HEADERS, HDR_ROW)
 
-    headers = HEADERS
-    ws.append(headers)
+    NUM_FMT_RS = '#,##0.00'
+    NUM_FMT_PCT = '0.0"%"'
 
-    hdr_fill = PatternFill("solid", fgColor="1F4E79")
-    hdr_font = Font(bold=True, color="FFFFFF", name="Calibri", size=11)
-    alt_fill = PatternFill("solid", fgColor="D6E4F0")
-    body_font = Font(name="Calibri", size=11)
-    side = Side(style="thin", color="A0B4CC")
-    border = Border(left=side, right=side, top=side, bottom=side)
+    for i, r in enumerate(final_rows, start=HDR_ROW + 1):
+        cls = r["classification"]
+        row_fill_hex = CLASS_FILL.get(cls, "FFFFFF")
+        row_fill = PatternFill("solid", fgColor=row_fill_hex)
 
-    for c in range(1, len(headers) + 1):
-        cell = ws.cell(row=1, column=c)
-        cell.fill = hdr_fill
-        cell.font = hdr_font
-        cell.alignment = Alignment(horizontal="center", vertical="center")
-        cell.border = border
-
-    for i, r in enumerate(final_rows, start=2):
-        vals = [
-            r["company_name"], r["dividend_rs"], r["payout_pct"] if r["payout_pct"] is not None else "N/A",
-            r["classification"], r["cmp"] if r["cmp"] is not None else "N/A",
-            r["announcement_date"], r["market_cap"], r["citation"],
+        cells = [
+            (r["company_name"], sty["left"], None),
+            (r["dividend_rs"], sty["right"], NUM_FMT_RS if r["dividend_rs"] is not None else None),
+            (r["payout_pct"] if r["payout_pct"] is not None else "N/A", sty["right"],
+             NUM_FMT_PCT if r["payout_pct"] is not None else None),
+            (cls, sty["left"], None),
+            (r["cmp"] if r["cmp"] is not None else "N/A", sty["right"],
+             NUM_FMT_RS if r["cmp"] is not None else None),
+            (r["announcement_date"], sty["center"], None),
+            (r["market_cap"], sty["right"], None),
+            ("BSE ↗", sty["center"], None),
         ]
-        for c, v in enumerate(vals, start=1):
-            cell = ws.cell(row=i, column=c, value=v)
-            cell.font = body_font
-            cell.border = border
-            if i % 2 == 0:
-                cell.fill = alt_fill
+        for c, (val, align, numfmt) in enumerate(cells, start=1):
+            cell = ws.cell(row=i, column=c, value=val)
+            cell.border = sty["border"]
+            cell.alignment = align
+            cell.fill = row_fill
+            if c == ncols:
+                cell.font = sty["link_font"]
+                cell.hyperlink = BSE_CORPACT_PAGE
+            else:
+                cell.font = sty["body_font"]
+            if numfmt:
+                cell.number_format = numfmt
 
-    widths = [30, 14, 14, 28, 10, 16, 14, 55]
+    widths = [32, 15, 13, 26, 11, 15, 14, 9]
     for c, w in enumerate(widths, start=1):
         ws.column_dimensions[get_column_letter(c)].width = w
-    ws.freeze_panes = "A2"
+    ws.freeze_panes = f"A{HDR_ROW + 1}"
+    ws.auto_filter.ref = f"A{HDR_ROW}:{get_column_letter(ncols)}{max(HDR_ROW, len(final_rows) + HDR_ROW)}"
+    ws.sheet_view.showGridLines = False
 
-    # Verification Pending sheet
-    pending_rows = conn.execute("""
-        SELECT company_name, dividend_rs, announcement_date, reason, added_run_date
-        FROM verification_pending ORDER BY added_run_date DESC
-    """).fetchall()
-    ws2 = wb.create_sheet("Verification Pending")
-    ws2.append(["Company", "Dividend Declared (Rs/Share)", "Announcement Date", "Reason", "Flagged On"])
-    for c in range(1, 6):
-        cell = ws2.cell(row=1, column=c)
-        cell.fill = hdr_fill
-        cell.font = hdr_font
-        cell.border = border
-    for i, r in enumerate(pending_rows, start=2):
-        for c, v in enumerate([r["company_name"], r["dividend_rs"], r["announcement_date"],
-                                r["reason"], r["added_run_date"]], start=1):
-            ws2.cell(row=i, column=c, value=v).border = border
-    for c, w in enumerate([30, 16, 16, 45, 14], start=1):
-        ws2.column_dimensions[get_column_letter(c)].width = w
-
-    # Recent Listings sheet — first dividend paid within RECENT_LISTING_YEARS
-    # of listing; kept out of the main "rare event" tracker but preserved.
+    # ── Sheet 2: Recent Listings ────────────────────────────────────────
     recent_rows = conn.execute("""
         SELECT company_name, dividend_rs, payout_pct, cmp, market_cap,
                announcement_date, years_since_listing, citation
         FROM recent_listing_dividends ORDER BY announcement_date DESC
     """).fetchall()
     ws3 = wb.create_sheet("Recent Listings")
-    ws3.append(RECENT_HEADERS)
-    for c in range(1, len(RECENT_HEADERS) + 1):
-        cell = ws3.cell(row=1, column=c)
-        cell.fill = hdr_fill
-        cell.font = hdr_font
-        cell.border = border
-    for i, r in enumerate(recent_rows, start=2):
-        vals = [r["company_name"], r["dividend_rs"],
-                r["payout_pct"] if r["payout_pct"] is not None else "N/A",
-                r["cmp"] if r["cmp"] is not None else "N/A", r["announcement_date"],
-                r["market_cap"], r["years_since_listing"], r["citation"]]
-        for c, v in enumerate(vals, start=1):
-            ws3.cell(row=i, column=c, value=v).border = border
-    for c, w in enumerate([30, 14, 14, 10, 16, 14, 16, 55], start=1):
+    n3 = len(RECENT_HEADERS)
+    _write_title_block(ws3, sty, "Recent Listings — First Dividend",
+                        f"Companies whose first-ever dividend came within {RECENT_LISTING_YEARS} years "
+                        f"of listing — expected, not a rare event; kept separate from the main tracker  |  "
+                        f"{len(recent_rows)} companies", n3)
+    _write_header_row(ws3, sty, RECENT_HEADERS, HDR_ROW)
+    for i, r in enumerate(recent_rows, start=HDR_ROW + 1):
+        cells = [
+            (r["company_name"], sty["left"], None),
+            (r["dividend_rs"], sty["right"], NUM_FMT_RS if r["dividend_rs"] is not None else None),
+            (r["payout_pct"] if r["payout_pct"] is not None else "N/A", sty["right"],
+             NUM_FMT_PCT if r["payout_pct"] is not None else None),
+            (r["cmp"] if r["cmp"] is not None else "N/A", sty["right"],
+             NUM_FMT_RS if r["cmp"] is not None else None),
+            (r["announcement_date"], sty["center"], None),
+            (r["market_cap"], sty["right"], None),
+            (r["years_since_listing"], sty["right"], '0.0'),
+            ("BSE ↗", sty["center"], None),
+        ]
+        for c, (val, align, numfmt) in enumerate(cells, start=1):
+            cell = ws3.cell(row=i, column=c, value=val)
+            cell.border = sty["border"]
+            cell.alignment = align
+            if c == n3:
+                cell.font = sty["link_font"]
+                cell.hyperlink = BSE_CORPACT_PAGE
+            else:
+                cell.font = sty["body_font"]
+            if numfmt:
+                cell.number_format = numfmt
+    for c, w in enumerate([32, 15, 13, 11, 15, 14, 15, 9], start=1):
         ws3.column_dimensions[get_column_letter(c)].width = w
+    ws3.freeze_panes = f"A{HDR_ROW + 1}"
+    ws3.auto_filter.ref = f"A{HDR_ROW}:{get_column_letter(n3)}{max(HDR_ROW, len(recent_rows) + HDR_ROW)}"
+    ws3.sheet_view.showGridLines = False
+
+    # ── Sheet 3: Verification Pending ───────────────────────────────────
+    pending_rows = conn.execute("""
+        SELECT company_name, dividend_rs, announcement_date, reason, added_run_date
+        FROM verification_pending ORDER BY added_run_date DESC
+    """).fetchall()
+    ws2 = wb.create_sheet("Verification Pending")
+    pending_headers = ["Company", "Dividend Declared (Rs/Share)", "Announcement Date", "Reason", "Flagged On"]
+    n2 = len(pending_headers)
+    _write_title_block(ws2, sty, "Verification Pending",
+                        f"Dividend history could not be independently verified — excluded from the "
+                        f"tracker until manually confirmed  |  {len(pending_rows)} companies", n2)
+    _write_header_row(ws2, sty, pending_headers, HDR_ROW)
+    for i, r in enumerate(pending_rows, start=HDR_ROW + 1):
+        vals = [r["company_name"], r["dividend_rs"], r["announcement_date"], r["reason"], r["added_run_date"]]
+        aligns = [sty["left"], sty["right"], sty["center"], sty["left"], sty["center"]]
+        for c, (val, align) in enumerate(zip(vals, aligns), start=1):
+            cell = ws2.cell(row=i, column=c, value=val)
+            cell.border = sty["border"]
+            cell.font = sty["body_font"]
+            cell.alignment = align
+            if c == 2 and val is not None:
+                cell.number_format = NUM_FMT_RS
+    for c, w in enumerate([30, 16, 16, 55, 14], start=1):
+        ws2.column_dimensions[get_column_letter(c)].width = w
+    ws2.freeze_panes = f"A{HDR_ROW + 1}"
+    ws2.sheet_view.showGridLines = False
 
     wb.save(XLSX_OUT)
     log.info("Exported %d qualifying + %d recent-listing + %d pending rows -> %s",
