@@ -27,6 +27,7 @@ Env vars (.env or shell):
 
 import os
 import io
+import re
 import sys
 import time
 import signal
@@ -35,6 +36,7 @@ import logging
 import datetime
 import smtplib
 import ssl
+from html import escape as html_escape
 from pathlib import Path
 from email.message import EmailMessage
 
@@ -331,6 +333,175 @@ def content_hash(df: pd.DataFrame) -> str:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Watchlist matching
+# ══════════════════════════════════════════════════════════════════════════════
+# Canonical watchlist company → extra name variants seen on NSE deal files that
+# don't reduce to the canonical name via plain legal-suffix stripping.
+WATCHLIST: dict[str, list[str]] = {
+    "Aeroflex Industries": [],
+    "Apollo Micro Systems": [],
+    "Atlanta Electricals": [],
+    "AXISCADES Technologies": [],
+    "Balu Forge Industries": [],
+    "Belrise Industries": [],
+    "BlueJet Healthcare": [],
+    "Dynamatic Technologies": [],
+    "Entero Healthcare Solutions": [],
+    "Force Motors": [],
+    "GE Power India": [],
+    "Inox India": [],
+    "Intellect Design Arena": [],
+    "Interarch Building Solutions": [],
+    "Inventurus Knowledge Solutions": [],
+    "Macpower CNC Machines": [],
+    "Nephrocare Health Services": [],
+    "Nitco": [],
+    "Quality Power Electrical Equipments": [],
+    "RACL Geartech": [],
+    "RateGain Travel Technologies": [],
+    "Rishabh Instruments": [],
+    "Rolex Rings": [],
+    "Sansera Engineering": [],
+    "Sheela Foam": [],
+    "Shree Refrigerations": [],
+    "Supreme Power Equipment": [],
+    "Supriya Lifescience": [],
+    "Venus Remedies": [],
+    "Vintage Coffee and Beverages": [],
+    "Windlas Biotech": [],
+    "Zen Technologies": [],
+    "Aarti Pharmalabs": [],
+    "Aether Industries": [],
+    "Bajaj Healthcare": [],
+    "Carborundum Universal": [],
+    "CE Info Systems": [],
+    "Creative Graphics Solutions India": [],
+    "Fabtech Technologies": [],
+    "Gravita India": [],
+    "IndiaMART InterMESH": ["IndiaMART"],
+    "Jaro Institute of Technology Management and Research": [],
+    "Krishna Defence and Allied Industries": [],
+    "Mamata Machinery": [],
+    "Mayur Uniquoters": [],
+    "OBSC Perfection": [],
+    "Pitti Engineering": ["Pitti Engg"],
+    "Powerica": [],
+    "Sai Life Sciences": [],
+    "Shivalik Bimetal Controls": [],
+    "SML Isuzu": [],
+    "Sona BLW Precision Forgings": [],
+    "Talbros Automotive Components": [],
+    "Tarsons Products": [],
+    "Unimech Aerospace and Manufacturing": [],
+    "Vedant Fashions": [],
+    "Vishnu Chemicals": [],
+    "V-Marc India": [],
+    "Xpro India": [],
+    "Zaggle Prepaid Ocean Services": [],
+    "Zinka Logistics / BlackBuck": ["Zinka Logistics", "Zinka Logistics Solutions", "BlackBuck"],
+}
+
+_LEGAL_SUFFIXES = {"LTD", "LIMITED", "PVT", "PRIVATE", "LLP", "INC", "CORP", "CORPORATION", "CO", "COMPANY"}
+_STOPWORDS      = {"AND", "OF", "THE", "FOR"}
+
+
+def _name_tokens(name: str) -> set[str]:
+    """Uppercase, strip punctuation, drop legal suffixes/stopwords → token set."""
+    raw = re.sub(r"[^A-Z0-9]+", " ", name.upper()).split()
+    return {t for t in raw if t not in _LEGAL_SUFFIXES and t not in _STOPWORDS}
+
+
+# Precomputed {canonical_name: [token_set_for_canonical, token_set_for_each_alias, ...]}
+_WATCHLIST_TOKENS: dict[str, list[set[str]]] = {
+    canonical: [_name_tokens(variant) for variant in [canonical, *aliases]]
+    for canonical, aliases in WATCHLIST.items()
+}
+
+
+def match_watchlist(security_name: str) -> str | None:
+    """
+    Return the canonical watchlist company name if `security_name` represents
+    one of the monitored companies, else None.
+
+    A match requires every (non-stopword, non-legal-suffix) token of a
+    watchlist name or one of its aliases to appear in the security name —
+    order-independent, tolerant of Ltd/Limited, punctuation, and case, but
+    deliberately conservative: partial/fuzzy token matches are not attempted,
+    so unrelated companies sharing one word (e.g. "Power", "India") never
+    trigger a false positive.
+    """
+    if not isinstance(security_name, str) or not security_name.strip():
+        return None
+    sec_tokens = _name_tokens(security_name)
+    if not sec_tokens:
+        return None
+    for canonical, variant_token_sets in _WATCHLIST_TOKENS.items():
+        for variant_tokens in variant_token_sets:
+            if variant_tokens and variant_tokens.issubset(sec_tokens):
+                return canonical
+    return None
+
+
+def find_watchlist_matches(bulk_df: pd.DataFrame, block_df: pd.DataFrame) -> pd.DataFrame:
+    """Combine bulk + block deals, return only rows whose security is on the watchlist."""
+    frames = [df for df in (bulk_df, block_df) if df is not None and not df.empty]
+    if not frames:
+        return pd.DataFrame(columns=REQUIRED_COLS)
+
+    combined = pd.concat(frames, ignore_index=True)
+    if "Security Name" not in combined.columns:
+        return pd.DataFrame(columns=REQUIRED_COLS)
+
+    combined["Watchlist Company"] = combined["Security Name"].apply(match_watchlist)
+    matched = combined[combined["Watchlist Company"].notna()].copy()
+    if matched.empty:
+        return matched
+
+    dedup_cols = [c for c in REQUIRED_COLS if c in matched.columns]
+    matched = matched.drop_duplicates(subset=dedup_cols, keep="first")
+    return matched
+
+
+def render_watchlist_html(matched: pd.DataFrame) -> str:
+    """Render matched transactions as a standalone HTML table for the email body."""
+    def fmt_qty(v):
+        return "" if pd.isna(v) else f"{v:,.0f}"
+
+    def fmt_price(v):
+        return "" if pd.isna(v) else f"₹{v:,.2f}"
+
+    header_cells = "".join(
+        f'<th style="padding:6px 10px;border:1px solid #A0B4CC;background:#1F4E79;'
+        f'color:#FFFFFF;font-family:Calibri,Arial,sans-serif;font-size:13px;text-align:left;">{c}</th>'
+        for c in ["Security Name", "Client Name", "Buy/Sell", "Quantity Traded", "Traded Price"]
+    )
+
+    rows_html = []
+    for i, (_, row) in enumerate(matched.iterrows()):
+        bg = "#D6E4F0" if i % 2 == 1 else "#FFFFFF"
+        cells = [
+            html_escape(str(row.get("Security Name", ""))),
+            html_escape(str(row.get("Client Name", ""))),
+            html_escape(str(row.get("Buy/Sell", ""))),
+            fmt_qty(row.get("Quantity Traded")),
+            fmt_price(row.get("Traded Price")),
+        ]
+        tds = "".join(
+            f'<td style="padding:6px 10px;border:1px solid #A0B4CC;'
+            f'font-family:Calibri,Arial,sans-serif;font-size:13px;background:{bg};">{c}</td>'
+            for c in cells
+        )
+        rows_html.append(f"<tr>{tds}</tr>")
+
+    return (
+        '<table style="border-collapse:collapse;margin:12px 0;">'
+        f"<thead><tr>{header_cells}</tr></thead>"
+        f"<tbody>{''.join(rows_html)}</tbody>"
+        "</table>"
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Excel builder
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -394,21 +565,57 @@ def build_excel(bulk_df: pd.DataFrame, block_df: pd.DataFrame, file_date: str) -
 # Email
 # ══════════════════════════════════════════════════════════════════════════════
 
-def send_email(path: Path) -> None:
+def send_email(path: Path, bulk_df: pd.DataFrame, block_df: pd.DataFrame) -> None:
     if not GMAIL_USER or not GMAIL_PASSWORD:
         log.warning("Gmail credentials not set — email skipped.")
         return
 
+    matched = find_watchlist_matches(bulk_df, block_df)
+    if not matched.empty:
+        log.info(
+            "Watchlist match — %d transaction(s): %s",
+            len(matched),
+            ", ".join(sorted(matched["Watchlist Company"].unique())),
+        )
+    else:
+        log.info("NO WATCHLIST MATCH FOUND for %s", path.stem)
+
     msg             = EmailMessage()
-    msg["Subject"]  = f"NSE Deals — {path.stem}"
     msg["From"]     = GMAIL_USER
     msg["To"]       = ", ".join(EMAIL_TO)
-    msg.set_content("Please find attached files\n\nRegards,\nAumkar")
-    msg.add_alternative(
-        "<html><body><p>Please find attached files</p>"
-        "<p>Regards,<br>Aumkar</p></body></html>",
-        subtype="html",
-    )
+
+    if not matched.empty:
+        msg["Subject"] = f"NSE Deals — {path.stem} — WATCHLIST ALERT"
+
+        plain_rows = "\n".join(
+            f"- {r['Security Name']} | {r['Client Name']} | {r['Buy/Sell']} | "
+            f"{r['Quantity Traded']:,.0f} | ₹{r['Traded Price']:,.2f}"
+            for _, r in matched.iterrows()
+        )
+        msg.set_content(
+            "NSE WATCHLIST DEAL ALERT\n\n"
+            "The following transactions involving monitored companies were identified:\n\n"
+            f"{plain_rows}\n\n"
+            "Please find attached files\n\nRegards,\nAumkar"
+        )
+        msg.add_alternative(
+            "<html><body>"
+            "<p><strong>NSE WATCHLIST DEAL ALERT</strong></p>"
+            "<p>The following transactions involving monitored companies were identified:</p>"
+            f"{render_watchlist_html(matched)}"
+            "<p>Please find attached files</p>"
+            "<p>Regards,<br>Aumkar</p>"
+            "</body></html>",
+            subtype="html",
+        )
+    else:
+        msg["Subject"] = f"NSE Deals — {path.stem}"
+        msg.set_content("Please find attached files\n\nRegards,\nAumkar")
+        msg.add_alternative(
+            "<html><body><p>Please find attached files</p>"
+            "<p>Regards,<br>Aumkar</p></body></html>",
+            subtype="html",
+        )
 
     with open(path, "rb") as fh:
         msg.add_attachment(
@@ -474,7 +681,7 @@ def run_monitor() -> None:
             if new_bulk or new_block:
                 log.info("New data — bulk_new=%s  block_new=%s", new_bulk, new_block)
                 path = build_excel(bulk_df, block_df, file_date)
-                send_email(path)
+                send_email(path, bulk_df, block_df)
                 seen["bulk"]  = h_bulk
                 seen["block"] = h_block
             else:
@@ -535,7 +742,7 @@ def run_once(target_date: str | None = None) -> None:
 
             if not (bulk_df.empty and block_df.empty):
                 path = build_excel(bulk_df, block_df, file_date)
-                send_email(path)
+                send_email(path, bulk_df, block_df)
                 return path, bulk_df, block_df
 
             now = datetime.datetime.now(IST)
