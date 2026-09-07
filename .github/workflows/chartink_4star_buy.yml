@@ -2,8 +2,8 @@ name: Chartink 4 Star Buy Screener
 
 on:
   schedule:
-    - cron: '5 11 * * 1-5'    # 4:35 PM IST (UTC+5:30), Monday–Friday — primary run
-    - cron: '35 11 * * 1-5'   # 5:05 PM IST — backup, in case the primary trigger is dropped
+    - cron: '6 11 * * 1-5'    # 4:36 PM IST (UTC+5:30), Monday–Friday — primary run
+    - cron: '39 11 * * 1-5'   # 5:09 PM IST — backup, in case the primary trigger is dropped
   workflow_dispatch:
 
 permissions:
