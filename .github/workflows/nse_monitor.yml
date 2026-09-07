@@ -2,7 +2,7 @@ name: NSE Deals Monitor
 
 on:
   schedule:
-    - cron: '30 13 * * 1-5'   # 7:00 PM IST (UTC+5:30), Monday–Friday
+    - cron: '27 13 * * 1-5'   # 6:57 PM IST (UTC+5:30), Monday–Friday
   workflow_dispatch:            # allows manual trigger from GitHub UI
 
 jobs:
