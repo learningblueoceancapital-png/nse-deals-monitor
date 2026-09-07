@@ -664,7 +664,7 @@ def send_email(path: Path, bulk_df: pd.DataFrame, block_df: pd.DataFrame) -> Non
             smtp.starttls(context=ctx)
             smtp.login(GMAIL_USER, GMAIL_PASSWORD)
             smtp.send_message(msg)
-        log.info("Email sent → %s", EMAIL_TO)
+        log.info("Email sent → %d recipients", len(EMAIL_TO))
     except Exception as exc:
         log.error("Email failed: %s", exc)
 
