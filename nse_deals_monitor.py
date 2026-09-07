@@ -103,6 +103,15 @@ CELL_BORDER = Border(left=_side, right=_side, top=_side, bottom=_side)
 INR_FMT     = r'₹#,##0.00'
 
 
+class FetchError(Exception):
+    """
+    Raised when a deals fetch fails after a cookie-refresh retry (e.g. a
+    persistent 401/403 or network error) — distinct from returning None,
+    which means the exchange legitimately has no data yet. Callers must
+    retry a FetchError leg rather than treat it as confirmed-empty.
+    """
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Browser session
 # ══════════════════════════════════════════════════════════════════════════════
@@ -256,46 +265,69 @@ class NSEBrowserSession:
         cap (the JSON API is hard-capped at 70 records regardless of parameters).
 
         nse_date format: DD-MM-YYYY
-        Returns None when the exchange has not yet published data for this date.
+        Returns None when the exchange has not yet published data for this date
+        (a genuinely empty/absent response). Raises FetchError when the request
+        itself fails after one cookie-refresh retry (401/403/network error) —
+        this must NOT be treated the same as "no data", or a transient block on
+        one leg (bulk/block) silently ships an incomplete report.
         """
         url = (
             f"{NSE_DEALS_API}"
             f"?optionType={option_type}&from={nse_date}&to={nse_date}&csv=true"
         )
-        try:
-            resp = self._api_session.get(url, timeout=20)
-
-            if resp.status_code == 401:
-                log.warning("401 on %s — refreshing cookies", option_type)
-                self._seed_cookies()
+        for attempt in range(2):   # 1 initial try + 1 retry after refreshing cookies
+            try:
                 resp = self._api_session.get(url, timeout=20)
 
-            resp.raise_for_status()
+                if resp.status_code in (401, 403):
+                    if attempt == 0:
+                        log.warning(
+                            "%d on %s — refreshing cookies and retrying",
+                            resp.status_code, option_type,
+                        )
+                        self._seed_cookies()
+                        continue
+                    raise FetchError(
+                        f"{option_type} still {resp.status_code} after cookie refresh"
+                    )
 
-            if not resp.content:
-                log.debug("%s: empty response — not yet published for %s", option_type, nse_date)
-                return None
+                resp.raise_for_status()
 
-            # CSV is UTF-8 with BOM; requests decompresses gzip automatically
-            df = pd.read_csv(
-                io.BytesIO(resp.content),
-                encoding="utf-8-sig",   # strips BOM
-                skipinitialspace=True,
-            )
+                if not resp.content:
+                    log.debug("%s: empty response — not yet published for %s", option_type, nse_date)
+                    return None
 
-            # Strip whitespace from column names (NSE adds trailing spaces)
-            df.columns = df.columns.str.strip()
+                # CSV is UTF-8 with BOM; requests decompresses gzip automatically
+                df = pd.read_csv(
+                    io.BytesIO(resp.content),
+                    encoding="utf-8-sig",   # strips BOM
+                    skipinitialspace=True,
+                )
 
-            if df.empty:
-                log.debug("%s: empty CSV for %s", option_type, nse_date)
-                return None
+                # Strip whitespace from column names (NSE adds trailing spaces)
+                df.columns = df.columns.str.strip()
 
-            log.info("%s: %d records for %s (full CSV)", option_type, len(df), nse_date)
-            return df
+                if df.empty:
+                    log.debug("%s: empty CSV for %s", option_type, nse_date)
+                    return None
 
-        except Exception as exc:
-            log.warning("fetch_deals(%s, %s) failed: %s", option_type, nse_date, exc)
-            return None
+                log.info("%s: %d records for %s (full CSV)", option_type, len(df), nse_date)
+                return df
+
+            except FetchError:
+                raise
+            except Exception as exc:
+                if attempt == 0:
+                    log.warning(
+                        "fetch_deals(%s, %s) failed: %s — refreshing cookies and retrying",
+                        option_type, nse_date, exc,
+                    )
+                    self._seed_cookies()
+                    continue
+                log.warning("fetch_deals(%s, %s) failed after retry: %s", option_type, nse_date, exc)
+                raise FetchError(f"{option_type} fetch failed for {nse_date}") from exc
+
+        raise FetchError(f"{option_type} fetch failed for {nse_date}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -666,8 +698,16 @@ def run_monitor() -> None:
             nse_date  = get_nse_date()
             file_date = datetime.datetime.strptime(nse_date, "%d-%m-%Y").strftime("%d%m%y")
 
-            raw_bulk  = session.fetch_deals("bulk_deals",  nse_date)
-            raw_block = session.fetch_deals("block_deals", nse_date)
+            try:
+                raw_bulk = session.fetch_deals("bulk_deals", nse_date)
+            except FetchError as exc:
+                log.warning("Skipping this poll cycle: %s", exc)
+                raw_bulk = None
+            try:
+                raw_block = session.fetch_deals("block_deals", nse_date)
+            except FetchError as exc:
+                log.warning("Skipping this poll cycle: %s", exc)
+                raw_block = None
 
             bulk_df  = normalise(raw_bulk)  if raw_bulk  is not None else pd.DataFrame()
             block_df = normalise(raw_block) if raw_block is not None else pd.DataFrame()
@@ -732,21 +772,47 @@ def run_once(target_date: str | None = None) -> None:
         attempt = 0
         while True:
             attempt += 1
-            raw_bulk  = session.fetch_deals("bulk_deals",  nse_date)
-            raw_block = session.fetch_deals("block_deals", nse_date)
+
+            bulk_error = block_error = None
+            try:
+                raw_bulk = session.fetch_deals("bulk_deals", nse_date)
+            except FetchError as exc:
+                bulk_error, raw_bulk = exc, None
+            try:
+                raw_block = session.fetch_deals("block_deals", nse_date)
+            except FetchError as exc:
+                block_error, raw_block = exc, None
 
             bulk_df  = normalise(raw_bulk)  if raw_bulk  is not None else pd.DataFrame()
             block_df = normalise(raw_block) if raw_block is not None else pd.DataFrame()
 
-            log.info("Attempt %d — bulk=%d  block=%d", attempt, len(bulk_df), len(block_df))
+            log.info(
+                "Attempt %d — bulk=%d%s  block=%d%s",
+                attempt,
+                len(bulk_df),  " (FETCH ERROR)" if bulk_error  else "",
+                len(block_df), " (FETCH ERROR)" if block_error else "",
+            )
 
-            if not (bulk_df.empty and block_df.empty):
+            # Only proceed once neither leg errored — a leg that errored is
+            # NOT confirmed-empty and must be retried, even if the other leg
+            # already has data. Genuinely empty (no error) legs are fine to send.
+            if not bulk_error and not block_error and not (bulk_df.empty and block_df.empty):
                 path = build_excel(bulk_df, block_df, file_date)
                 send_email(path, bulk_df, block_df)
                 return path, bulk_df, block_df
 
             now = datetime.datetime.now(IST)
             if now.hour >= SEND_CUTOFF_HOUR:
+                if (bulk_error or block_error) and not (bulk_df.empty and block_df.empty):
+                    log.warning(
+                        "Cutoff reached for %s with a fetch error still outstanding "
+                        "(bulk_error=%s, block_error=%s) — sending best-effort data; "
+                        "the errored leg's sheet may be incomplete, not confirmed zero.",
+                        nse_date, bool(bulk_error), bool(block_error),
+                    )
+                    path = build_excel(bulk_df, block_df, file_date)
+                    send_email(path, bulk_df, block_df)
+                    return path, bulk_df, block_df
                 log.warning(
                     "No data published for %s by %02d:00 IST — email NOT sent.",
                     nse_date, SEND_CUTOFF_HOUR,
@@ -754,7 +820,8 @@ def run_once(target_date: str | None = None) -> None:
                 return None, bulk_df, block_df
 
             nxt = (now + datetime.timedelta(seconds=RETRY_INTERVAL)).strftime("%H:%M IST")
-            log.info("No data yet for %s — retrying at %s", nse_date, nxt)
+            log.info("Retrying %s at %s (bulk_error=%s, block_error=%s)",
+                      nse_date, nxt, bool(bulk_error), bool(block_error))
             time.sleep(RETRY_INTERVAL)
             session.ensure_fresh()
     finally:
