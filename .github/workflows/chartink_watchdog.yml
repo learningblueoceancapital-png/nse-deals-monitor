@@ -2,7 +2,7 @@ name: Chartink Screener Watchdog
 
 on:
   schedule:
-    - cron: '30 11 * * 1-5'   # 5:00 PM IST — after both screeners' primary + backup triggers
+    - cron: '32 11 * * 1-5'   # 5:02 PM IST — after both screeners' primary + backup triggers
   workflow_dispatch:
 
 permissions:
