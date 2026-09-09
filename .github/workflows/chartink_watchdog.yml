@@ -2,7 +2,7 @@ name: Chartink Screener Watchdog
 
 on:
   schedule:
-    - cron: '32 11 * * 1-5'   # 5:02 PM IST — after both screeners' primary + backup triggers
+    - cron: '6 12 * * 1-5'   # 5:36 PM IST — after all three screeners' primary + backup triggers (Stage 2 backup is 5:19 PM)
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,8 @@ jobs:
 
       - name: Check today's screener runs, re-trigger + alert on any miss
         env:
-          GH_TOKEN:            ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN:            ${{ secrets.CROSS_REPO_TOKEN }}
           GMAIL_USER:           ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD:   ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python chartink_watchdog.py
+
