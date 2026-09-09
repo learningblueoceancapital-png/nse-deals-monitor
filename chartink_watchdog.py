@@ -2,20 +2,15 @@
 """
 Chartink Screener Watchdog
 ───────────────────────────
-Runs after the 4 Star Buy, 5 Star Buy (RSI) and Stage 2 screeners' primary +
+Runs after both the 4 Star Buy and 5 Star Buy (RSI) screeners' primary +
 backup cron triggers should have fired. GitHub Actions occasionally drops
 scheduled ("cron") triggers under platform load, so this checks the Actions
-run history for a successful run today; if any screener never ran, it
+run history for a successful run today; if either screener never ran, it
 re-triggers it via workflow_dispatch and emails an alert so the miss
 doesn't go unnoticed again.
 
-The Stage 2 screener lives in a separate repo (chartink-screener-alert), so
-GH_TOKEN must be a token with actions:write on BOTH this repo and that one
-(a fine-grained PAT) rather than the default same-repo GITHUB_TOKEN.
-
 Env vars (or GitHub Secrets):
-  GH_TOKEN             GitHub token with actions:write on this repo AND
-                        learningblueoceancapital-png/chartink-screener-alert
+  GH_TOKEN             GitHub token with actions:write on this repo
   GMAIL_USER           your Gmail address
   GMAIL_APP_PASSWORD   16-char Gmail App Password
 """
@@ -46,17 +41,13 @@ EMAIL_TO = [
     "kinjal.shah@blueoceancapital.co.in",
 ]
 
-WORKFLOWS = [
-    (REPO, "chartink_4star_buy.yml"),
-    (REPO, "chartink_screener.yml"),
-    ("learningblueoceancapital-png/chartink-screener-alert", "stage2_screener.yml"),
-]
-LOOKBACK_HOURS = 6  # watchdog fires well after all screeners' primary+backup triggers
+WORKFLOWS = ["chartink_4star_buy.yml", "chartink_screener.yml"]
+LOOKBACK_HOURS = 6  # watchdog fires well after both screeners' primary+backup triggers
 
 
-def ran_successfully_today(repo: str, workflow: str) -> bool:
+def ran_successfully_today(workflow: str) -> bool:
     out = subprocess.run(
-        ["gh", "run", "list", "--repo", repo, "--workflow", workflow, "--status", "success",
+        ["gh", "run", "list", "--workflow", workflow, "--status", "success",
          "--limit", "5", "--json", "createdAt"],
         capture_output=True, text=True, check=True,
     ).stdout
@@ -68,9 +59,9 @@ def ran_successfully_today(repo: str, workflow: str) -> bool:
     return False
 
 
-def trigger(repo: str, workflow: str) -> None:
-    subprocess.run(["gh", "workflow", "run", "--repo", repo, workflow], check=True)
-    log.info("Re-triggered %s (%s)", workflow, repo)
+def trigger(workflow: str) -> None:
+    subprocess.run(["gh", "workflow", "run", workflow], check=True)
+    log.info("Re-triggered %s", workflow)
 
 
 def send_alert(missed: list[str]) -> None:
@@ -106,20 +97,19 @@ def send_alert(missed: list[str]) -> None:
 
 def main() -> None:
     missed = []
-    for repo, wf in WORKFLOWS:
-        if ran_successfully_today(repo, wf):
-            log.info("%s (%s): OK — successful run within last %sh", wf, repo, LOOKBACK_HOURS)
+    for wf in WORKFLOWS:
+        if ran_successfully_today(wf):
+            log.info("%s: OK — successful run within last %sh", wf, LOOKBACK_HOURS)
         else:
-            log.warning("%s (%s): MISSED — no successful run in last %sh", wf, repo, LOOKBACK_HOURS)
-            missed.append(f"{wf} ({repo})")
-            trigger(repo, wf)
+            log.warning("%s: MISSED — no successful run in last %sh", wf, LOOKBACK_HOURS)
+            missed.append(wf)
+            trigger(wf)
 
     if missed:
         send_alert(missed)
     else:
-        log.info("All screeners ran on schedule today. No action needed.")
+        log.info("Both screeners ran on schedule today. No action needed.")
 
 
 if __name__ == "__main__":
     main()
-
