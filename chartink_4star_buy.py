@@ -41,7 +41,6 @@ GMAIL_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
 
 EMAIL_TO = [
     "lavneesh@blueoceancapital.co.in",
-    "param.parekh@blueoceancapital.co.in",
     "kinjal.shah@blueoceancapital.co.in",
 ]
 
