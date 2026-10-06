@@ -22,6 +22,7 @@ import ssl
 import subprocess
 import datetime
 import logging
+import time
 from email.message import EmailMessage
 
 logging.basicConfig(
@@ -42,9 +43,11 @@ EMAIL_TO = [
 
 WORKFLOWS = ["chartink_4star_buy.yml", "chartink_screener.yml"]
 LOOKBACK_HOURS = 6  # watchdog fires well after both screeners' primary+backup triggers
+CHECK_RETRIES = 2       # extra attempts if the first check finds nothing
+CHECK_RETRY_DELAY = 20  # seconds between attempts — covers GitHub Actions API read lag
 
 
-def ran_successfully_today(workflow: str) -> bool:
+def _recent_success_exists(workflow: str) -> bool:
     out = subprocess.run(
         ["gh", "run", "list", "--workflow", workflow, "--status", "success",
          "--limit", "5", "--json", "createdAt"],
@@ -55,6 +58,19 @@ def ran_successfully_today(workflow: str) -> bool:
         created = datetime.datetime.fromisoformat(run["createdAt"].replace("Z", "+00:00"))
         if (now - created).total_seconds() < LOOKBACK_HOURS * 3600:
             return True
+    return False
+
+
+def ran_successfully_today(workflow: str) -> bool:
+    for attempt in range(1 + CHECK_RETRIES):
+        if _recent_success_exists(workflow):
+            return True
+        if attempt < CHECK_RETRIES:
+            log.info(
+                "%s: no successful run found (attempt %d/%d) — retrying in %ds in case "
+                "of GitHub API lag", workflow, attempt + 1, 1 + CHECK_RETRIES, CHECK_RETRY_DELAY,
+            )
+            time.sleep(CHECK_RETRY_DELAY)
     return False
 
 
