@@ -2,6 +2,11 @@ name: Momentum Portfolio - Friday Report
 
 on:
   workflow_dispatch:
+    inputs:
+      force_run:
+        description: "Bypass the Thu/Fri gate + already-sent guard (manual testing only, still respects DRY_RUN)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,6 +33,7 @@ jobs:
           GMAIL_USER:         ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           DRY_RUN:             ${{ vars.MOMENTUM_PORTFOLIO_DRY_RUN || 'true' }}
+          FORCE_RUN:           ${{ inputs.force_run }}
         run: python momentum_portfolio_build.py --mode friday
 
       - name: Commit updated portfolio files
