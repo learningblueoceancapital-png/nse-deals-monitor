@@ -14,6 +14,7 @@ Env vars (or GitHub Secrets):
 import os
 import re
 import sys
+import csv
 import smtplib
 import ssl
 import logging
@@ -263,6 +264,32 @@ def send_email(rows: list[dict], run_date: str) -> None:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Signal log — feeds the Momentum Portfolio tracker (momentum_portfolio_build.py).
+# Additive only: never read by this script, never affects the email above.
+# ══════════════════════════════════════════════════════════════════════════════
+
+SIGNAL_LOG_PATH = "signals_raw_log.csv"
+SIGNAL_LOG_HEADER = ["Date", "Rating", "Sr", "StockName", "Symbol", "Close", "Change", "Volume"]
+
+
+def append_to_signal_log(rows: list[dict], run_date_iso: str) -> None:
+    if not rows:
+        return
+    file_exists = os.path.exists(SIGNAL_LOG_PATH)
+    with open(SIGNAL_LOG_PATH, "a", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        if not file_exists:
+            w.writerow(SIGNAL_LOG_HEADER)
+        for row in rows:
+            w.writerow([
+                run_date_iso, "4star",
+                row.get("Sr.", ""), row.get("Stock Name", ""), row.get("Symbol", ""),
+                row.get("Close", ""), row.get("%_change", ""), row.get("Volume", ""),
+            ])
+    log.info("Appended %d row(s) to %s", len(rows), SIGNAL_LOG_PATH)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Entry point
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -273,6 +300,7 @@ def main() -> None:
 
     rows = fetch_screener()
     send_email(rows, run_date)
+    append_to_signal_log(rows, now.strftime("%Y-%m-%d"))
     log.info("Done.")
 
 
