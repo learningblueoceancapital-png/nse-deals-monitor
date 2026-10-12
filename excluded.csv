@@ -1,4 +1,4 @@
 Name/Symbol As Seen,Full Name,Source Screener,Email Date,Reason Excluded
-BHARATBOND-APR30,BHARATBOND-APR30,5★ Buys (RSI),2026-10-05,"Not in NSE official equity list - Bharat Bond ETF (debt ETF), not a company stock"
-PHARMABEES,Nippon India ETF Nifty Pharma,5★ Buys (RSI),2026-10-06,In NSE official ETF list; symbol also contains 'BEES'
-CNXPHARMA,CNXPHARMA,5★ Buys (RSI),2026-10-06,"Not in NSE official equity list - this is an index value (Nifty Pharma), not a tradable security"
+BHARATBOND-APR30,BHARATBOND-APR30,5★,2026-10-05,Not in NSE official equity list
+PHARMABEES,Nippon India NIFTY Pharma ETF Growth Plan,5★,2026-10-06,"Not in NSE official equity list; In NSE official ETF list; Name/symbol contains: ETF, BEES"
+CNXPHARMA,CNXPHARMA,5★,2026-10-06,Not in NSE official equity list
