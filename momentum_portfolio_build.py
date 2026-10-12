@@ -681,6 +681,56 @@ def recipients() -> list[str]:
     return DRY_RUN_RECIPIENTS if DRY_RUN else PROD_RECIPIENTS
 
 
+def _build_friday_html(metrics: list[tuple], new_names: list[str], run_date: str,
+                        data_stale: bool, as_of: datetime.date) -> str:
+    """Same navy/light-blue theme as chartink_4star_buy.py / chartink_screener.py's _build_html,
+    so this email looks like a sibling of the 4 Star Buy / 5 Star Buys (RSI) emails."""
+    rows_html = ""
+    for i, (label, value) in enumerate(metrics):
+        bg = "#D6E4F0" if i % 2 == 0 else "#ffffff"
+        rows_html += (
+            f'<tr style="background:{bg};">'
+            f'<td style="padding:7px 12px;border-bottom:1px solid #cce0f0;font-weight:bold;">{label}</td>'
+            f'<td style="padding:7px 12px;border-bottom:1px solid #cce0f0;">{value}</td>'
+            f'</tr>\n'
+        )
+
+    stale_html = ""
+    if data_stale:
+        stale_html = (
+            f'<p style="color:#b35c00;font-size:12px;margin-top:14px;">'
+            f'Note: today\'s NSE data was not published by the 8:00 PM IST cutoff — figures use '
+            f'the last available close, {as_of.strftime("%d %b %Y")}.</p>'
+        )
+    dry_run_html = ""
+    if DRY_RUN:
+        dry_run_html = (
+            '<p style="color:#b35c00;font-size:12px;margin-top:6px;">'
+            'DRY RUN — sent only to Kinjal for review, not the full recipient list.</p>'
+        )
+
+    return f"""
+    <html>
+    <body style="font-family:Calibri,Arial,sans-serif;color:#222;margin:0;padding:20px;">
+      <h2 style="color:#1F4E79;margin-bottom:4px;">Momentum Portfolio</h2>
+      <p style="color:#555;margin-top:0;font-size:13px;">
+        Run date: <strong>{run_date}</strong>
+      </p>
+      <table cellspacing="0" cellpadding="0" border="0"
+             style="border-collapse:collapse;border:1px solid #1F4E79;min-width:420px;">
+        <tbody>{rows_html}</tbody>
+      </table>
+      <p style="margin-top:14px;font-size:13px;">
+        <strong>New names this week:</strong> {', '.join(new_names) if new_names else 'none'}
+      </p>
+      {stale_html}
+      {dry_run_html}
+      <p style="margin-top:24px;">Regards,<br>Kinjal Shah</p>
+    </body>
+    </html>
+    """
+
+
 def send_friday_email(rows: list[dict], as_of: datetime.date, new_names: list[str],
                        data_stale: bool) -> None:
     if not GMAIL_USER or not GMAIL_PASSWORD:
@@ -688,17 +738,20 @@ def send_friday_email(rows: list[dict], as_of: datetime.date, new_names: list[st
         return
 
     settled = [r for r in rows if r["latest_price"] is not None and r["buy_price"] is not None]
-    pnls, invs, pcts = [], [], []
+    pnls, invs, cvs, pcts = [], [], [], []
     for r in settled:
         qty = int(CAPITAL_PER_STOCK // r["buy_price"])
         inv = r["buy_price"] * qty
         cv = r["latest_price"] * qty
         pnls.append(cv - inv)
         invs.append(inv)
+        cvs.append(cv)
         pcts.append(r["latest_price"] / r["buy_price"] - 1)
 
+    total_invested = sum(invs)
+    total_current = sum(cvs)
     # Dollar-weighted, matching the xlsx Summary block's G2 = SUM(M)/SUM(J) exactly
-    total_pnl_pct = (sum(pnls) / sum(invs) * 100) if invs and sum(invs) else 0.0
+    total_pnl_pct = (sum(pnls) / total_invested * 100) if total_invested else 0.0
     winners = sum(1 for p in pnls if p > 0)
     losers = sum(1 for p in pnls if p < 0)
     if pcts:
@@ -709,7 +762,18 @@ def send_friday_email(rows: list[dict], as_of: datetime.date, new_names: list[st
     else:
         best = worst = "n/a"
 
+    run_date = as_of.strftime("%d %b %Y")
+    metrics = [
+        ("Total Invested", f"Rs {total_invested:,.0f}"),
+        ("Current Value", f"Rs {total_current:,.0f}"),
+        ("Total P&L", f"{total_pnl_pct:+.2f}%"),
+        ("Winners / Losers", f"{winners} / {losers}"),
+        ("Best / Worst", f"{best} / {worst}"),
+    ]
+
     lines = [
+        f"Total Invested: Rs {total_invested:,.0f}",
+        f"Current Value: Rs {total_current:,.0f}",
         f"Total P&L: {total_pnl_pct:+.2f}%",
         f"Winners: {winners} | Losers: {losers}",
         f"Best: {best} | Worst: {worst}",
@@ -720,14 +784,19 @@ def send_friday_email(rows: list[dict], as_of: datetime.date, new_names: list[st
                       f"figures use the last available close, {as_of.strftime('%d %b %Y')}.)")
     if DRY_RUN:
         lines.append("(DRY RUN — sent only to Kinjal for review, not the full recipient list.)")
+    lines.append("")
+    lines.append("Regards,")
+    lines.append("Kinjal Shah")
 
     body = "\n".join(lines)
+    html = _build_friday_html(metrics, new_names, run_date, data_stale, as_of)
 
     msg = EmailMessage()
     msg["Subject"] = "Momentum Portfolio"
     msg["From"] = GMAIL_USER
     msg["To"] = ", ".join(recipients())
     msg.set_content(body)
+    msg.add_alternative(html, subtype="html")
 
     with open(XLSX_PATH, "rb") as f:
         msg.add_attachment(
