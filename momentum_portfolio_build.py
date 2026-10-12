@@ -808,14 +808,16 @@ def mode_silent():
     log.info("Silent update done. %d stocks tracked, as-of %s", len(rows), as_of.isoformat())
 
 
-def mode_friday():
+def mode_friday(force: bool = False):
     today = datetime.datetime.now(IST).date()
     now = datetime.datetime.now(IST)
     wd = today.weekday()  # Mon=0 .. Fri=4
 
     holidays = fetch_nse_holidays()
 
-    if wd == 4:  # Friday
+    if force:
+        log.warning("FORCE_RUN=true — bypassing the Thursday/Friday day-of-week gate (manual test only)")
+    elif wd == 4:  # Friday
         if today in holidays:
             log.info("Today (Friday) is an NSE holiday — ceremony shifts to Thursday, nothing to do")
             return
@@ -830,7 +832,7 @@ def mode_friday():
         return
 
     state = load_state()
-    if state.get("last_friday_email_date") == today.isoformat():
+    if state.get("last_friday_email_date") == today.isoformat() and not force:
         log.info("Already sent today's Momentum Portfolio email (%s) — exiting", today.isoformat())
         return
 
@@ -838,13 +840,13 @@ def mode_friday():
     data_available = bhavcopy_exists(today)
     checked_at = now.strftime("%H:%M IST")
 
-    if not data_available and now < CUTOFF:
+    if not data_available and now < CUTOFF and not force:
         log.info("Today's bhavcopy not published yet (checked %s) — will retry next poll", checked_at)
         return
 
     if not data_available:
-        log.warning("Cutoff (8:00 PM IST) reached and today's data still not published — "
-                    "sending with last-available data")
+        log.warning("%s today's data still not published — sending with last-available data",
+                    "FORCE_RUN:" if force else "Cutoff (8:00 PM IST) reached and")
 
     rows, signals, excluded_rows, as_of, _ = run_pipeline()
 
@@ -866,11 +868,15 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["silent", "friday"], default="silent")
+    parser.add_argument("--force", action="store_true",
+                         help="Bypass the Thu/Fri day-of-week gate and today's-already-sent "
+                              "guard (manual testing only — does not bypass DRY_RUN).")
     args = parser.parse_args()
+    force = args.force or os.getenv("FORCE_RUN", "").strip().lower() == "true"
 
-    log.info("Momentum Portfolio build — mode=%s DRY_RUN=%s", args.mode, DRY_RUN)
+    log.info("Momentum Portfolio build — mode=%s DRY_RUN=%s force=%s", args.mode, DRY_RUN, force)
     if args.mode == "friday":
-        mode_friday()
+        mode_friday(force=force)
     else:
         mode_silent()
 
