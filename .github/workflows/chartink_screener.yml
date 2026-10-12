@@ -3,6 +3,9 @@ name: Chartink 5 Star Buy Screener
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-screener:
     runs-on: ubuntu-latest
@@ -28,3 +31,13 @@ jobs:
           GMAIL_USER:         ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python chartink_screener.py
+
+      - name: Commit signal log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add signals_raw_log.csv
+          git diff --staged --quiet && exit 0
+          git commit -m "Log $(date -u +%Y-%m-%d) 5-star signals"
+          git pull --rebase origin main
+          git push
