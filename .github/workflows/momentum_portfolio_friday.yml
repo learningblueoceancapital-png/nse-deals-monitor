@@ -1,0 +1,41 @@
+name: Momentum Portfolio - Friday Report
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  friday-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install openpyxl
+
+      - name: Run Friday bhavcopy check / report
+        env:
+          GMAIL_USER:         ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DRY_RUN:             ${{ vars.MOMENTUM_PORTFOLIO_DRY_RUN || 'true' }}
+        run: python momentum_portfolio_build.py --mode friday
+
+      - name: Commit updated portfolio files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add portfolio.csv signals_log.csv excluded.csv portfolio.xlsx portfolio_state.json friday_publish_log.csv
+          git diff --staged --quiet && exit 0
+          git commit -m "Momentum Portfolio: Friday report $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push
