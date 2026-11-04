@@ -33,6 +33,7 @@ jobs:
         run: python chartink_4star_buy.py
 
       - name: Commit signal log
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
